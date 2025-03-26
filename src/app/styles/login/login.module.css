@@ -1,0 +1,96 @@
+/* /styles/login.css */
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.logoObsLogin {
+    width: 150px;
+    pointer-events: none; /* Desativa eventos de ponteiro (como arrastar) */
+    user-select: none; /* Impede a seleção da imagem */
+    -webkit-user-drag: none;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px; 
+}
+
+.loginLabel {
+    position: relative;
+}
+
+.loginInput {
+    padding: 8px;
+    padding-left: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+    transition: all 0.3s ease; /* Aplica transição suave para todas as propriedades */
+}
+
+/* Removido o scale do input */
+.loginInput:hover {
+    border: 2px solid #d8d8d8; /* Altera a borda para destacar o input */
+}
+
+.loginInput:focus {
+    border: 2px solid #3b82f6; /* Destaca a borda com uma cor diferente */
+    outline: none; /* Remove o contorno padrão do navegador */
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); /* Adiciona uma sombra suave */
+}
+
+/* Animação de ícone para coincidir com o input */
+.loginIcon, .passwordIcon {
+    position: absolute;
+    transition: all 0.3s ease;
+    transform: translateY(-50%);
+}
+
+/* Ícone do usuário */
+.loginIcon {
+    width: 20px;
+    left: 8px;
+    top: 70%;
+}
+
+/* Ícone da senha */
+.passwordIcon {
+    width: 18px;
+    left: 10px;
+    top: 70%;
+}
+
+/* Adicionando animação para o ícone */
+.loginInput:hover + .loginIcon,
+.loginInput:focus + .loginIcon {
+    transform: translateY(-50%) scale(1.1); /* Aumenta o ícone quando o input recebe hover ou foco */
+}
+
+.loginInput:hover + .passwordIcon,
+.loginInput:focus + .passwordIcon {
+    transform: translateY(-50%) scale(1.1); /* Aumenta o ícone quando o input recebe hover ou foco */
+}
+
+.loginButton {
+    padding: 8px 40px;
+    background-image: linear-gradient(to right, #3b82f6, #1d4ed8);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    transition: transform 0.3s ease;
+}
+
+.loginButton:hover {
+    transform: scale(1.07); /* Aumenta o tamanho do botão em 10% */
+}
