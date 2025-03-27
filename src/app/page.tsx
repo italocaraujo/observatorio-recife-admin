@@ -1,8 +1,9 @@
-// /app/home/page.tsx
 'use client';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from './styles/home/page.module.css';
+import Sidebar from '../../component/home/Sidebar';
 
 export default function Home() {
   const router = useRouter();
@@ -15,8 +16,8 @@ export default function Home() {
   }, [router]);
 
   return (
-    <div>
-      <h1>Bem-vindo à página inicial!</h1>
+    <div className={styles.container}>
+      <Sidebar/>
     </div>
   );
 }

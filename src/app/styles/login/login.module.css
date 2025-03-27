@@ -8,6 +8,14 @@
     height: 100vh;
 }
 
+.logoContainer {
+    transition: all 0.1s ease;
+}
+
+.logoContainer:hover {
+    transform: rotate(45deg);
+}
+
 .logoObsLogin {
     width: 150px;
     pointer-events: none; /* Desativa eventos de ponteiro (como arrastar) */
@@ -20,6 +28,9 @@
     flex-direction: column;
     align-items: center;
     gap: 7px; 
+    background-color: #d8d8d8;
+    padding: 35px 20px;
+    border-radius: 20px;
 }
 
 .loginLabel {
@@ -29,7 +40,7 @@
 .loginInput {
     padding: 8px;
     padding-left: 2rem;
-    border: 1px solid #ccc;
+    border: 2px solid #585858;
     border-radius: 10px;
     width: 100%;
     transition: all 0.3s ease; /* Aplica transição suave para todas as propriedades */
@@ -37,7 +48,7 @@
 
 /* Removido o scale do input */
 .loginInput:hover {
-    border: 2px solid #d8d8d8; /* Altera a borda para destacar o input */
+    border: 2px solid #818181; /* Altera a borda para destacar o input */
 }
 
 .loginInput:focus {
@@ -65,6 +76,7 @@
     width: 18px;
     left: 10px;
     top: 70%;
+    fill: #ccc;
 }
 
 /* Adicionando animação para o ícone */
@@ -78,19 +90,86 @@
     transform: translateY(-50%) scale(1.1); /* Aumenta o ícone quando o input recebe hover ou foco */
 }
 
+.loginButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.rememberMeLabel {
+    display: flex;
+    align-items: center;
+    
+}
+
+.rememberMeCheckBox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #585858;
+    border-radius: 4px;
+    margin-right: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+  
+.rememberMeCheckBox:checked {
+    background-color: #3b82f6; /* Cor de fundo quando o checkbox é marcado */
+    border-color: #3b82f6;
+}
+  
+.rememberMeCheckBox:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.rememberMeCheckBox:hover {
+    border-color: #007bff;
+}
+
+.rememberMeText {
+    font-size: 0.9rem;
+}
+
 .loginButton {
     padding: 8px 40px;
     background-image: linear-gradient(to right, #3b82f6, #1d4ed8);
     color: #fff;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 700;
     font-size: 1.1rem;
-    margin-top: 20px;
     transition: transform 0.3s ease;
 }
 
 .loginButton:hover {
     transform: scale(1.07); /* Aumenta o tamanho do botão em 10% */
+}
+
+@media (prefers-color-scheme: dark) {
+    .loginForm {
+        background-color: #272727;
+    }
+
+    .loginInput {
+        border: 2px solid #ccc;
+    }
+
+    .rememberMeCheckBox {
+        border: 2px solid #ccc;
+    }
+
+    .loginInput:hover {
+        border: 2px solid #ffffff; /* Altera a borda para destacar o input */
+    }
+
 }
