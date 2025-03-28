@@ -1,46 +1,98 @@
+/* Definições de cores para o modo claro */
 :root {
-  --background: #ffffff;
-  --foreground: #151515;
+  --background: #ffffff; /* Cor de fundo do modo claro */
+  --foreground: #4b4b4b; /* Cor de texto do modo claro */
+
+  /* sidebar */
+  --background-sidebar: #ffffff;
+  --item-sidebar-hover: #E7F5FF;
+  --item-sidebar-activated: #D0EBFF;
+
+  /* headbar */
+  --background-headbar: #ffffff;
+  --fill-icons: #4b4b4b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #151515;
-    --foreground: #ffffff;
-  }
+/* Estilos para o modo escuro */
+body.dark-mode {
+  --background: #151515; /* Cor de fundo do modo escuro */
+  --foreground: #ffffff; /* Cor de texto do modo escuro */
+
+  /* sidebar */
+  --background-sidebar: #272727;
+  --item-sidebar-hover: #3a3a3a;
+  --item-sidebar-activated: #555555;
+
+  /* headbar */
+  --background-headbar: #222222;
+  --fill-icons: #ffffff;
 }
 
+/* Estilos gerais para o HTML e Body */
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-input, button {
-  font-family: Poppins, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--foreground); /* Aplica a cor do texto com base na variável */
+  background: var(--background); /* Aplica o fundo com base na variável */
   font-family: Poppins, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Reset de estilos para todos os elementos */
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
+/* Links e âncoras */
 a {
   color: inherit;
   text-decoration: none;
 }
 
+/* Ajuste no esquema de cores ao detectar modo escuro no sistema */
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  body.dark-mode {
+    background-color: var(--background);
   }
+}
+
+/* Estilos adicionais para o modo escuro */
+body.dark-mode .sidebar {
+  background-color: #272727;
+  color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .nav ul li a {
+  color: white;
+}
+
+body.dark-mode .nav ul li a:hover {
+  background-color: #3a3a3a; /* Efeito de hover no modo escuro */
+}
+
+body.dark-mode .nav ul li a.activeLink {
+  background-color: #555555;
+}
+
+/* Outros estilos gerais do layout */
+button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  font-family: Poppins, sans-serif;
+}
+
+input {
+  font-family: Poppins, sans-serif;
 }

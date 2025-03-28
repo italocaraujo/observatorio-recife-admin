@@ -1,0 +1,64 @@
+/* Estilos para a headbar fixa no topo */
+.headbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 72px; /* Definindo a altura fixa para a headbar */
+    background-color: var(--background-headbar);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 900;
+  }
+  
+  /* Ajuste para o conteúdo */
+  .content {
+    margin-left: 240px; /* Espaço para a sidebar */
+    margin-top: 60px; /* Espaço para a headbar */
+    padding: 20px;
+  }
+  
+  /* Estilo para os ícones na headbar */
+  .icons {
+    display: flex;
+    gap: 17px;
+  }
+  
+  /* Estilo para os botões dos ícones */
+  .iconButton {
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    fill: var(--fill-icons);
+  }
+
+  .userPhoto {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Modo dark */
+  body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  body.dark-mode .headbar {
+    background-color: #1f1f1f;
+  }
+  
+  body.dark-mode .iconButton svg path {
+    fill: #fff;
+  }
+  
+  @media (max-width: 767px) {
+    .headbar  {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }

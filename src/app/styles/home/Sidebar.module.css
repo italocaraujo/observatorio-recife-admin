@@ -1,74 +1,127 @@
-/* /styles/home/Sidebar.module.css */
-
 /* Sidebar fixa na tela */
 .sidebar {
-    position: fixed; /* A sidebar vai ser fixa na tela */
-    top: 0;
+  position: fixed; /* A sidebar vai ser fixa na tela */
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: var(--background-sidebar); /* Usando a variável para o fundo */
+  color: var(--foreground); /* Usando a variável para a cor do texto */
+  padding: 16px;
+  transition: transform 0.3s ease;
+  z-index: 1000; /* Garante que a sidebar fique acima de outros elementos */
+}
+
+/* Sidebar visível no desktop (permanente) */
+@media (min-width: 768px) {
+  .sidebar {
+    transform: none;
     left: 0;
-    width: 240px;
-    height: 100vh;
-    background-color: #333;
-    color: white;
-    padding-top: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra para dar um efeito de destaque */
-    transition: transform 0.3s ease;
-    z-index: 1000; /* Garante que a sidebar fique acima de outros elementos */
   }
-  
-  /* Sidebar visível no desktop (permanente) */
-  @media (min-width: 768px) {
-    .sidebar {
-      transform: none;
-      left: 0;
-    }
-  
-    .toggleButton {
-      display: none; /* Esconde o botão de toggle no desktop */
-    }
+
+  .toggleButtonClose,
+  .toggleButtonOpen {
+    display: none; /* Esconde os botões de toggle no desktop */
   }
-  
-  /* Para dispositivos móveis, o botão de toggle aparece */
-  @media (max-width: 767px) {
-    .sidebar {
-      transform: translateX(-250px); /* A sidebar começa fora da tela */
-      left: 0;
-    }
-  
-    .sidebar.open {
-      transform: translateX(0); /* Move a sidebar para dentro da tela */
-    }
-  
-    .toggleButton {
-      position: absolute;
-      top: 20px;
-      left: 10px;
-      background-color: #3b82f6;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+}
+
+/* Para dispositivos móveis, o botão de toggle aparece */
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-250px); /* A sidebar começa fora da tela */
+    left: 0;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
   }
-  
-  .nav ul {
-    list-style: none;
-    padding: 0;
+
+  .sidebar.open {
+    transform: translateX(0); /* Move a sidebar para dentro da tela */
   }
-  
-  .nav ul li {
+
+  .toggleButtonClose {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 1.5%;
+    right: 0;
+    background-color: transparent;
+    stroke: var(--foreground);
+    border: none;
     padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1100; /* Garante que o botão fique acima de outros elementos na sidebar */
   }
-  
+
+  .toggleButtonOpen {
+    position: absolute;
+    top: 1.8%;
+    left: 2.5%;
+    color: var(--foreground);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 40px;
+    stroke: var(--foreground);
+    z-index: 910;
+  }
+}
+
+.logoAdminObs {
+  margin-bottom: 14px;
+}
+
+.menuTitle {
+  color: var(--foreground); /* Usando variável para o texto */
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav ul li a {
+  color: var(--foreground); /* Usando variável para o texto */
+  text-decoration: none;
+  display: block;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease; /* Suaviza a transição de cor */
+}
+
+.nav ul li a:hover {
+  background-color: var(--item-sidebar-hover); /* Altera a cor de fundo ao passar o mouse */
+}
+
+/* Quando o link está ativo, muda a cor de fundo */
+.nav ul li a.activeLink {
+  background-color: var(--item-sidebar-activated); /* Cor de fundo quando o link está ativo */
+}
+
+/* Tema escuro */
+@media (prefers-color-scheme: dark) {
+  .sidebar {
+    background-color: #272727;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  }
+
   .nav ul li a {
     color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
   }
-  
+
   .nav ul li a:hover {
-    background-color: #444; /* Altera a cor de fundo ao passar o mouse */
+    background-color: #3a3a3a; /* Altera a cor de fundo ao passar o mouse */
   }
-  
+
+  .nav ul li a.activeLink {
+    background-color: var(--item-sidebar-activated); /* Cor de fundo quando o link está ativo */
+  }
+
+  .menuTitle {
+    color: #ffffff;
+  }
+}
