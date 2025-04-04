@@ -92,7 +92,7 @@ const Sidebar = () => {
         <nav className={styles.nav}>
           <p className={styles.menuTitle}>Menu</p>
           <ul>
-            <li><a href="/" className={isActiveLink('/')}>Página Inicial</a></li>
+            <li><a href="/home" className={isActiveLink('/home')}>Página Inicial</a></li>
             <li><a href="/users" className={isActiveLink('/users')}>Usuários</a></li>
             <li><a href="/news" className={isActiveLink('/news')}>Notícias</a></li>
             <li><a href="/security" className={isActiveLink('/security')}>Segurança</a></li>

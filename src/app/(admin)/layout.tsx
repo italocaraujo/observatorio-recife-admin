@@ -1,6 +1,8 @@
 import { Poppins } from "next/font/google";
+import Sidebar from "../../../component/home/Sidebar";
+import HeadBar from "../../../component/home/HeadBar";
 import Head from "next/head"; // Importando o componente Head
-import "./globals.css";
+import "../globals.css";
 
 const poppins = Poppins({
   variable: "--font-poppins-sans",
@@ -14,17 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <Head>
-          <link rel="icon" href="/favicon.ico" /> {/* Adicionando o favicon */}
-        </Head>
-      </head>
-      <body className={`${poppins.variable}`}>
-        <div>
-          {children}
-        </div>
-      </body>
-    </html>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" /> {/* Adicionando o favicon */}
+      </Head>
+      <HeadBar />
+      <Sidebar />
+      <div>
+        {children}
+      </div>
+
+    </>
   );
 }

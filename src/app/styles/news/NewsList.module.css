@@ -1,0 +1,122 @@
+/* Adicione ao seu arquivo de estilos */
+
+.newsContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .newsList {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+  }
+  
+  .newsItem {
+    background: var(--card-list-news);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .newsContent {
+    padding: 1.5rem;
+    flex-grow: 1;
+  }
+  
+  .newsTitle {
+    margin: 0 0 0.5rem 0;
+    color: var(--card-news-title);
+    font-size: 1.25rem;
+  }
+  
+  .newsDate {
+    color: var(--card-news-date);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+  
+  .newsDescription {
+    color: var(--card-news-description);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  
+  .newsImageContainer {
+    margin: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .newsImage {
+    max-width: 500px;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .newsLink {
+    display: inline-block;
+    color: #3b82f6;
+    text-decoration: none;
+    margin-top: 1rem;
+  }
+  
+  .newsLink:hover {
+    text-decoration: underline;
+  }
+  
+  .newsActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--card-news-actions);
+    border-top: 1px solid var(--card-news-border);
+  }
+  
+  .editButton, .deleteButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .editButton {
+    background-color: #e0f2fe;
+    color: #0369a1;
+  }
+  
+  .editButton:hover {
+    background-color: #bae6fd;
+  }
+  
+  .deleteButton {
+    background-color: var(--delete-button-background);
+    color: var(--delete-button-text);
+  }
+  
+  .deleteButton:hover {
+    background-color: var(--delete-button-hover);
+  }
+  
+  .errorMessage {
+    color: #b91c1c;
+    background-color: #fee2e2;
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .emptyMessage {
+    color: #666;
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+  }

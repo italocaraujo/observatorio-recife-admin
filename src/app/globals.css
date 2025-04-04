@@ -4,28 +4,75 @@
   --foreground: #4b4b4b; /* Cor de texto do modo claro */
 
   /* sidebar */
-  --background-sidebar: #ffffff;
-  --item-sidebar-hover: #E7F5FF;
-  --item-sidebar-activated: #D0EBFF;
+  --background-sidebar: #f0f4f9;
+  --item-sidebar-hover: #dfe3e7;
+  --item-sidebar-activated: #c2e7ff;
 
   /* headbar */
-  --background-headbar: #ffffff;
+  --background-headbar: #f0f4f9;
   --fill-icons: #4b4b4b;
+
+  --gray-border: rgb(196,199,197);
+
+
+  --gradient: linear-gradient(to right, #3b82f6, #1d4ed8);
+
+  /* login form */
+  --background-login-form: #f0f0f0;
+
+  --item-hover: #f0f1f0;
+  
+  /* Create News */
+  --image-input-hover: #dfe3e7;
+
+  /* News List */
+  --card-list-news: #ffffff;
+  --card-news-title: #1a1a1a;
+  --card-news-date: #666;
+  --card-news-description: #333;
+  --card-news-actions: #f9fafb;
+  --card-news-border: #e5e7eb;
+  --delete-button-background: #fee2e2;
+  --delete-button-hover: #fecaca;
+  --delete-button-text: #b91c1c;
 }
 
 /* Estilos para o modo escuro */
 body.dark-mode {
   --background: #151515; /* Cor de fundo do modo escuro */
-  --foreground: #ffffff; /* Cor de texto do modo escuro */
+  --foreground: #c4c7c5; /* Cor de texto do modo escuro */
 
   /* sidebar */
-  --background-sidebar: #272727;
+  --background-sidebar: #1e1f20;
   --item-sidebar-hover: #3a3a3a;
   --item-sidebar-activated: #555555;
 
   /* headbar */
-  --background-headbar: #222222;
+  --background-headbar: #1e1f20;
   --fill-icons: #ffffff;
+
+  --gray-border: #444746;
+
+  --gradient: linear-gradient(to right,#f97316,#c2410c);
+
+  /* login form */
+  --background-login-form: #272727;
+
+  --item-hover: #202121;
+
+  /* Create News */
+  --image-input-hover: #2e2e2e;
+
+  /* News List */
+  --card-list-news: #272727;
+  --card-news-title: #f5f5f5;
+  --card-news-date: #dbdbdb;
+  --card-news-description: #c4c7c5;
+  --card-news-actions: #1e1f20;
+  --card-news-border: #444746;
+  --delete-button-background: #bb2115;
+  --delete-button-hover: #9e1414;
+  --delete-button-text: #fff;
 }
 
 /* Estilos gerais para o HTML e Body */
@@ -39,7 +86,7 @@ body {
 
 body {
   color: var(--foreground); /* Aplica a cor do texto com base na variável */
-  background: var(--background); /* Aplica o fundo com base na variável */
+  background: var(--background-headbar); /* Aplica o fundo com base na variável */
   font-family: Poppins, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -61,7 +108,7 @@ a {
 /* Ajuste no esquema de cores ao detectar modo escuro no sistema */
 @media (prefers-color-scheme: dark) {
   body.dark-mode {
-    background-color: var(--background);
+    background-color: var(--background-headbar);
   }
 }
 
@@ -95,4 +142,8 @@ button {
 
 input {
   font-family: Poppins, sans-serif;
+}
+
+body.dark-mode input, textarea{
+  color: var(--foreground);
 }

@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: var(--background);
 }
 
 .logoContainer {
@@ -28,7 +29,7 @@
     flex-direction: column;
     align-items: center;
     gap: 7px; 
-    background-color: #f0f0f0;
+    background-color: var(--background-login-form);
     padding: 35px 20px;
     border-radius: 20px;
 }
@@ -43,7 +44,8 @@
     border: 2px solid #585858;
     border-radius: 10px;
     width: 100%;
-    transition: all 0.3s ease; /* Aplica transição suave para todas as propriedades */
+    transition: all 0.3s ease;
+    background-color: transparent;
 }
 
 /* Removido o scale do input */
@@ -153,23 +155,4 @@
 
 .loginButton:hover {
     transform: scale(1.07); /* Aumenta o tamanho do botão em 10% */
-}
-
-@media (prefers-color-scheme: dark) {
-    .loginForm {
-        background-color: #272727;
-    }
-
-    .loginInput {
-        border: 2px solid #ccc;
-    }
-
-    .rememberMeCheckBox {
-        border: 2px solid #ccc;
-    }
-
-    .loginInput:hover {
-        border: 2px solid #ffffff; /* Altera a borda para destacar o input */
-    }
-
 }

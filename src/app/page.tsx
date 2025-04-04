@@ -1,25 +1,30 @@
-'use client';
+// app/login/page.tsx
+'use client'; // Adiciona a diretiva 'use client' para o Next.js 13
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from './styles/home/page.module.css';
-import Sidebar from '../../component/home/Sidebar';
-import HeadBar from '../../component/home/HeadBar';
+import LoginForm from '../../component/login/LoginForm'; // Caminho correto para o componente LoginForm
+import styles from '@/app/styles/login/login.module.css';
 
-export default function Home() {
+export default function Login() {
   const router = useRouter();
 
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    if (!isAuthenticated) {
-      router.push('/login');  // Redireciona para o login se não estiver autenticado
+  const handleLogin = (username: string, password: string, rememberMe: boolean) => {
+    // Simulação de validação de login (isso pode ser substituído por autenticação real)
+    if (username === 'admin' && password === 'observatorio') {
+      // Salvar o estado de autenticação no localStorage
+      localStorage.setItem('isAuthenticated', 'true');
+      router.push('/home');  // Redireciona para a página inicial após login bem-sucedido
+    } else {
+      alert('Credenciais inválidas');
     }
-  }, [router]);
+  };
 
   return (
-    <div className={styles.container}>
-      <Sidebar/>
-      <HeadBar/>
+    <div className={styles.loginContainer}>
+      <div className={styles.logoContainer}>
+        <img src="/images/logos/observatorio_logo.png" alt="Observatório Logo" className={styles.logoObsLogin} />
+      </div>
+      <LoginForm onSubmit={handleLogin} />
     </div>
   );
 }

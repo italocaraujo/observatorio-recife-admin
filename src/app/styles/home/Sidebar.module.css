@@ -89,7 +89,8 @@
   display: block;
   padding: 16px;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   transition: background-color 0.3s ease; /* Suaviza a transição de cor */
 }
 
@@ -100,28 +101,7 @@
 /* Quando o link está ativo, muda a cor de fundo */
 .nav ul li a.activeLink {
   background-color: var(--item-sidebar-activated); /* Cor de fundo quando o link está ativo */
+  font-weight: 600;
 }
 
-/* Tema escuro */
-@media (prefers-color-scheme: dark) {
-  .sidebar {
-    background-color: #272727;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-  }
 
-  .nav ul li a {
-    color: white;
-  }
-
-  .nav ul li a:hover {
-    background-color: #3a3a3a; /* Altera a cor de fundo ao passar o mouse */
-  }
-
-  .nav ul li a.activeLink {
-    background-color: var(--item-sidebar-activated); /* Cor de fundo quando o link está ativo */
-  }
-
-  .menuTitle {
-    color: #ffffff;
-  }
-}

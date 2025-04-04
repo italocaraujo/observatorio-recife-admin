@@ -1,30 +1,38 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import styles from '@/app/styles/home/HeadBar.module.css'; // Importando os estilos
 
 const Headbar = () => {
-  // Verificar se o modo escuro já está ativado no localStorage ou no body ao carregar a página
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      // Verifica se o body já tem a classe 'dark-mode' no início
-      return document.body.classList.contains('dark-mode');
-    }
-    return false;
-  });
-
-  // Função para alternar o modo claro/escuro
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle('dark-mode', !isDarkMode); // Aplica ou remove a classe 'dark-mode' no body
-  };
+  const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Atualiza o localStorage para que a preferencia de tema seja persistida
-    if (isDarkMode) {
-      localStorage.setItem('theme', 'dark');
-    } else {
-      localStorage.setItem('theme', 'light');
+    // Verifica se o localStorage contém uma preferência de tema
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      setIsDarkMode(savedTheme === 'dark');
+      
+      // Aplica o tema no body, baseado no localStorage
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
     }
-  }, [isDarkMode]);
+  }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode); // Atualiza o estado corretamente
+    // Altera a classe 'dark-mode' no body
+    document.body.classList.toggle('dark-mode', newMode);
+    // Atualiza o localStorage para persistir a preferência de tema
+    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+  };
+
+  if (isDarkMode === null) {
+    return null; // Ou um componente de carregamento, enquanto o estado é decidido
+  }
 
   return (
     <header className={styles.headbar}>
@@ -46,7 +54,7 @@ const Headbar = () => {
 
         <button className={styles.iconButton} aria-label="Notificações">
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-            <path d="M640 832a128 128 0 0 1-256 0h256zm192-64H134.4a38.4 38.4 0 0 1 0-76.8H192V448c0-154.88 110.08-284.16 256.32-313.6a64 64 0 1 1 127.36 0A320.128 320.128 0 0 1 832 448v243.2h57.6a38.4 38.4 0 0 1 0 76.8H832z"/>
+            <path d="M640 832a128 128 0 0 1-256 0h256zm192-64H134.4a38.4 38.4 0 0 1 0-76.8H192V448c0-154.88 110.08-284.16 256.32-313.6a64 64 0 1 1 127.36 0A320.128 320.128 00 0 1 832 448v243.2h57.6a38.4 38.4 0 0 1 0 76.8H832z"/>
           </svg>
         </button>
 
