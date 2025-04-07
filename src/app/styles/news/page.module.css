@@ -93,17 +93,11 @@
     background-color: var(--item-hover);
   }
 
-  /* Estilos para o formulário de criação de notícia */
   .createNewsForm {
     max-width: 600px;
     margin: 0 auto;
   }
 
-
-  
-  
-
-  /* Lista de notícias */
   .newsList {
     margin-top: 20px;
   }
@@ -144,4 +138,55 @@
   .newsItem button:last-child:hover {
     background-color: #c82333;
   }
+
+  .successMessage {
+    color: #065f46;
+    background-color: #d1fae5;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
+    animation-delay: 0s, 2.5s; /* Atraso para iniciar o fadeOut após o fadeIn */
+  }
+  
+  .errorMessage {
+    color: #b91c1c;
+    background-color: #fee2e2;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
+    animation-delay: 0s, 2.5s; /* Atraso para iniciar o fadeOut após o fadeIn */
+  }
+  
+  /* Animação de Fade-in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Animação de Fade-out */
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  
   

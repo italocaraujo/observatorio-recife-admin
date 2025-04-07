@@ -1,40 +1,43 @@
-'use client'; // Adiciona a diretiva 'use client' para o Next.js 13
+'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation'; // Usando usePathname para acessar a URL atual
-import styles from '@/app/styles/home/Sidebar.module.css'; // Caminho para o CSS da Sidebar
+import { usePathname } from 'next/navigation';
+import styles from '@/app/styles/home/Sidebar.module.css';
 
-const Sidebar = () => {
+interface SidebarProps {
+  links: { href: string; label: string }[];
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ links }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref para a sidebar
-  const pathname = usePathname(); // Usando usePathname para obter a URL atual
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
 
-  // Função para alternar a sidebar no mobile
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  // Função para alternar a visibilidade da sidebar
+  const toggleSidebar = () => setIsOpen((prev) => !prev);
 
-  // Função para fechar a sidebar ao clicar fora dela
+  // Fecha a sidebar ao clicar fora dela
   const handleClickOutside = (e: MouseEvent) => {
     if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
-      setIsOpen(false); // Fecha a sidebar se o clique for fora dela
+      setIsOpen(false);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside); // Adiciona o listener de clique fora
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-    // Remove o event listener ao desmontar o componente
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []); // Apenas no primeiro render
+  // Verifica se o link está ativo com base na URL atual
+  const isActiveLink = (href: string) => (pathname === href ? styles.activeLink : '');
 
-  // Função para verificar se o link está ativo
-  const isActiveLink = (href: string) => {
-    return pathname === href ? styles.activeLink : ''; // Verifica se o caminho corresponde ao link
-  };
-
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isOpen]);
 
   return (
     <div>
@@ -78,6 +81,7 @@ const Sidebar = () => {
             </defs>
           </svg>
         </div>
+
         <button 
           className={styles.toggleButtonClose} 
           onClick={toggleSidebar}
@@ -92,10 +96,13 @@ const Sidebar = () => {
         <nav className={styles.nav}>
           <p className={styles.menuTitle}>Menu</p>
           <ul>
-            <li><a href="/home" className={isActiveLink('/home')}>Página Inicial</a></li>
-            <li><a href="/users" className={isActiveLink('/users')}>Usuários</a></li>
-            <li><a href="/news" className={isActiveLink('/news')}>Notícias</a></li>
-            <li><a href="/security" className={isActiveLink('/security')}>Segurança</a></li>
+            {links.map(({ href, label }) => (
+              <li key={href}>
+                <a href={href} className={isActiveLink(href)}>
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

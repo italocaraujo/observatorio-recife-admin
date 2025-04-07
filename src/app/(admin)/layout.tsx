@@ -1,14 +1,15 @@
-import { Poppins } from "next/font/google";
 import Sidebar from "../../../component/home/Sidebar";
 import HeadBar from "../../../component/home/HeadBar";
-import Head from "next/head"; // Importando o componente Head
+import Head from "next/head"; 
 import "../globals.css";
 
-const poppins = Poppins({
-  variable: "--font-poppins-sans",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
+const sidebarLinks = [
+  { href: "/home", label: "Página Inicial" },
+  { href: "/users", label: "Usuários" },
+  { href: "/news", label: "Notícias" },
+  { href: "/security", label: "Segurança" },
+  { href: "/settings", label: "Configurações" }, 
+];
 
 export default function RootLayout({
   children,
@@ -18,10 +19,10 @@ export default function RootLayout({
   return (
     <>
       <Head>
-        <link rel="icon" href="/favicon.ico" /> {/* Adicionando o favicon */}
+        <link rel="favicon" href="/favicon.ico" /> 
       </Head>
       <HeadBar />
-      <Sidebar />
+      <Sidebar links={sidebarLinks} />
       <div>
         {children}
       </div>

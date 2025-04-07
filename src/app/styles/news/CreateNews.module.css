@@ -187,45 +187,21 @@
       transform: rotate(360deg);
     }
   }
-  
-  .successMessage {
-    color: #065f46;
-    background-color: #d1fae5;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .errorMessage {
-    color: #b91c1c;
-    background-color: #fee2e2;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
+
+@media (max-width: 768px) {
     .createNewsContainer {
-      padding: 1.5rem;
+        padding: 1.5rem;
     }
     
     .formActions {
-      flex-direction: column;
+        flex-direction: column;
     }
     
     .submitButton,
     .resetButton {
-      width: 100%;
+        width: 100%;
     }
-  }
+}
+
 
   

@@ -19,6 +19,7 @@ export default function News() {
   const [newsData, setNewsData] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null); // Add state for success message
   const [forceRefresh, setForceRefresh] = useState<number>(0);
 
   const handleTabChange = (tab: 'create' | 'view') => {
@@ -68,33 +69,30 @@ export default function News() {
     fetchNews();
   }, [forceRefresh]);
 
-  const handleCreateNews = async (newsData: Omit<NewsItem, 'id'>, imageFile?: File): Promise<boolean> => {
+  const handleCreateNews = async (formData: FormData): Promise<boolean> => {
     try {
-      const formData = new FormData();
-      
-      // Adiciona os dados da notícia como JSON
-      formData.append('news', JSON.stringify(newsData));
-      
-      // Adiciona a imagem se existir
-      if (imageFile) {
-        formData.append('image', imageFile);
-      }
-  
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/news/newsData`, {
         method: 'POST',
         headers: {
-          // Não definir Content-Type manualmente - o browser vai definir com o boundary correto
           Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
         },
-        body: formData
+        body: formData,
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Erro ao criar notícia');
       }
-  
+
+      // Mensagem de sucesso após criação
+      setSuccessMessage("Notícia adicionada com sucesso!");
+      setTimeout(() => {
+        setSuccessMessage(null); // Limpa a mensagem após 3 segundos
+      }, 3000);
+
+      // Atualiza o estado de força de atualização
       setForceRefresh(prev => prev + 1);
+      
       return true;
     } catch (err) {
       console.error('Erro ao criar notícia:', err);
@@ -172,10 +170,16 @@ export default function News() {
             </div>
           </div>
 
+          {successMessage && (
+            <div className={styles.successMessage}>
+              {successMessage}
+            </div>
+          )}
+
           {activeTab === 'create' ? (
             <CreateNews 
               handleCreateNews={handleCreateNews} 
-              onSuccess={() => setForceRefresh(prev => prev + 1)}
+              onSuccess={() => setForceRefresh(prev => prev + 1)} 
             />
           ) : (
             <NewsList 

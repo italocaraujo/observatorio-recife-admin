@@ -11,7 +11,7 @@ interface NewsItem {
 }
 
 interface CreateNewsProps {
-  handleCreateNews: (newsData: Omit<NewsItem, 'id'>, imageFile?: File) => Promise<boolean>;
+  handleCreateNews: (formData: FormData) => Promise<boolean>;
   onSuccess: () => void;
 }
 
@@ -28,7 +28,6 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -38,15 +37,14 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Atualiza o estado com o nome do arquivo
       setFormData(prev => ({ ...prev, image: file.name }));
       
-      // Cria preview da imagem
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
+      setImageFile(file);
     }
   };
 
@@ -55,14 +53,19 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
     setError(null);
     setSuccessMessage(null);
     setLoading(true);
-
-    if (!formData.title || !formData.description || !formData.image || !formData.date || !formData.link) {
-      setError("Todos os campos são obrigatórios");
+  
+    if (!formData.title || !formData.description || !formData.date || !formData.link || !imageFile) {
+      setError("Todos os campos são obrigatórios, incluindo a imagem");
       return;
     }
 
+    // Criação do FormData
+    const formDataToSend = new FormData();
+    formDataToSend.append('news', JSON.stringify(formData));  // Adiciona os dados da notícia
+    formDataToSend.append('image', imageFile);  // Adiciona a imagem
+
     try {
-      const success = await handleCreateNews(formData, imageFile || undefined);
+      const success = await handleCreateNews(formDataToSend);  // Passando o FormData para a função
 
       if (success) {
         setSuccessMessage("Notícia adicionada com sucesso!");
@@ -76,9 +79,14 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
           link: ''
         });
         setImageFile(null);
+
+        // Limpa a mensagem de sucesso após 3 segundos
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 3000); // Mensagem desaparecerá após 3 segundos
       } else {
         throw new Error("Falha ao criar notícia");
-      } 
+      }
     } catch (err) {
       console.error("Erro ao criar notícia:", err);
       setError(err instanceof Error ? err.message : "Erro desconhecido ao criar notícia");
@@ -86,7 +94,7 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
       setLoading(false);
     }
   };
-
+  
   const resetForm = () => {
     setFormData({
       title: "",
@@ -101,19 +109,6 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
   return (
     <div className={styles.createNewsContainer}>
       <h1 className={styles.titleCreateNews}>Adicionar Nova Notícia</h1>
-
-      {successMessage && (
-        <div className={styles.successMessage}>
-          {successMessage}
-        </div>
-      )}
-
-      {error && (
-        <div className={styles.errorMessage}>
-          {error}
-        </div>
-      )}
-
       <form onSubmit={handleSubmit} className={styles.formCreateNews}>
         <div className={styles.inputContainer}>
           <label htmlFor="title">Título*</label>
@@ -151,7 +146,6 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
           </label>
           <div className={styles.imageUploadWrapper}>
             <label className={styles.imageUploadLabel}>
-              
               <span>{formData.image || "Nenhum imagem anexada"}</span>
             </label>
             <input
