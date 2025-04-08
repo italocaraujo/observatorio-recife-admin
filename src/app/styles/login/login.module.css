@@ -1,5 +1,3 @@
-/* /styles/login.css */
-
 .loginContainer {
     display: flex;
     flex-direction: column;
@@ -19,8 +17,8 @@
 
 .logoObsLogin {
     width: 150px;
-    pointer-events: none; /* Desativa eventos de ponteiro (como arrastar) */
-    user-select: none; /* Impede a seleção da imagem */
+    pointer-events: none; 
+    user-select: none; 
     -webkit-user-drag: none;
 }
 
@@ -48,32 +46,28 @@
     background-color: transparent;
 }
 
-/* Removido o scale do input */
 .loginInput:hover {
-    border: 2px solid #818181; /* Altera a borda para destacar o input */
+    border: 2px solid #818181; 
 }
 
 .loginInput:focus {
-    border: 2px solid #3b82f6; /* Destaca a borda com uma cor diferente */
-    outline: none; /* Remove o contorno padrão do navegador */
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); /* Adiciona uma sombra suave */
+    border: 2px solid #3b82f6; 
+    outline: none; 
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); 
 }
 
-/* Animação de ícone para coincidir com o input */
 .loginIcon, .passwordIcon {
     position: absolute;
     transition: all 0.3s ease;
     transform: translateY(-50%);
 }
 
-/* Ícone do usuário */
 .loginIcon {
     width: 20px;
     left: 8px;
     top: 70%;
 }
 
-/* Ícone da senha */
 .passwordIcon {
     width: 18px;
     left: 10px;
@@ -81,15 +75,14 @@
     fill: #ccc;
 }
 
-/* Adicionando animação para o ícone */
 .loginInput:hover + .loginIcon,
 .loginInput:focus + .loginIcon {
-    transform: translateY(-50%) scale(1.1); /* Aumenta o ícone quando o input recebe hover ou foco */
+    transform: translateY(-50%) scale(1.1);
 }
 
 .loginInput:hover + .passwordIcon,
 .loginInput:focus + .passwordIcon {
-    transform: translateY(-50%) scale(1.1); /* Aumenta o ícone quando o input recebe hover ou foco */
+    transform: translateY(-50%) scale(1.1);
 }
 
 .loginButtonContainer {
@@ -118,7 +111,7 @@
 }
   
 .rememberMeCheckBox:checked {
-    background-color: #3b82f6; /* Cor de fundo quando o checkbox é marcado */
+    background-color: #3b82f6;
     border-color: #3b82f6;
 }
   
@@ -154,5 +147,5 @@
 }
 
 .loginButton:hover {
-    transform: scale(1.07); /* Aumenta o tamanho do botão em 10% */
+    transform: scale(1.07); 
 }

@@ -1,6 +1,5 @@
 import { Poppins } from "next/font/google";
-import Head from "next/head"; // Importando o componente Head
-import "./globals.css";
+import Head from "next/head";
 
 const poppins = Poppins({
   variable: "--font-poppins-sans",
@@ -17,7 +16,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Head>
-          <link rel="icon" href="/favicon.ico" /> {/* Adicionando o favicon */}
+          <title>Observatório Admin</title>
+          <link rel="icon" href="/favicon.ico" />
         </Head>
       </head>
       <body className={`${poppins.variable}`}>

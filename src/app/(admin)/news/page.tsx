@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '@/app/styles/news/page.module.css';
 import CreateNews from '../../../../component/news/CreateNews';
 import NewsList from '../../../../component/news/NewsList';
+import EditNews from '../../../../component/news/EditNews';
 
 interface NewsItem {
   id: number;
@@ -19,7 +20,8 @@ export default function News() {
   const [newsData, setNewsData] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null); // Add state for success message
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [editingNews, setEditingNews] = useState<NewsItem | null>(null);
   const [forceRefresh, setForceRefresh] = useState<number>(0);
 
   const handleTabChange = (tab: 'create' | 'view') => {
@@ -139,6 +141,24 @@ export default function News() {
     );
   }
 
+  const handleSave = (editedNews: NewsItem) => {
+    // Atualiza a lista de notícias com as modificações
+    const updatedNewsData = newsData.map(news => 
+      news.id === editedNews.id ? editedNews : news
+    );
+    setNewsData(updatedNewsData);
+    setEditingNews(null); // Fecha o modal após salvar
+    setSuccessMessage('Notícia atualizada com sucesso!'); // Exibe mensagem de sucesso
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 3000); // A mensagem de sucesso desaparecerá após 3 segundos
+  };
+
+  // Função para editar a notícia
+  const handleEdit = (news: NewsItem) => {
+    setEditingNews(news); // Abre o modal com os dados da notícia a ser editada
+  };
+
   if (loading) {
     return <div className={styles.loading}>Carregando...</div>;
   }
@@ -185,10 +205,23 @@ export default function News() {
             <NewsList 
               newsData={newsData} 
               onDelete={handleDeleteNews}
+              onEdit={handleEdit} 
             />
           )}
         </section>
       </div>
+      {editingNews && (
+        <EditNews 
+          newsToEdit={editingNews}
+          onSave={handleSave}
+          onCancel={() => setEditingNews(null)} 
+          isOpen={true}
+        />
+      )}
     </div>
   );
 }
+function setEditingNews(arg0: null) {
+  throw new Error('Function not implemented.');
+}
+

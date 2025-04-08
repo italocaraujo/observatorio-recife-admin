@@ -59,13 +59,12 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
       return;
     }
 
-    // Criação do FormData
     const formDataToSend = new FormData();
-    formDataToSend.append('news', JSON.stringify(formData));  // Adiciona os dados da notícia
-    formDataToSend.append('image', imageFile);  // Adiciona a imagem
+    formDataToSend.append('news', JSON.stringify(formData));
+    formDataToSend.append('image', imageFile);
 
     try {
-      const success = await handleCreateNews(formDataToSend);  // Passando o FormData para a função
+      const success = await handleCreateNews(formDataToSend);
 
       if (success) {
         setSuccessMessage("Notícia adicionada com sucesso!");
@@ -80,10 +79,9 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
         });
         setImageFile(null);
 
-        // Limpa a mensagem de sucesso após 3 segundos
         setTimeout(() => {
           setSuccessMessage(null);
-        }, 3000); // Mensagem desaparecerá após 3 segundos
+        }, 3000);
       } else {
         throw new Error("Falha ao criar notícia");
       }

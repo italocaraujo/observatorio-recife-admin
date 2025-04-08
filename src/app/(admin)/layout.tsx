@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <>
       <Head>
+        <title>Observatório Admin</title>
         <link rel="favicon" href="/favicon.ico" /> 
       </Head>
       <HeadBar />

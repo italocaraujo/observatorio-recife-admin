@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import styles from '@/app/styles/login/login.module.css'; // Caminho correto para o CSS específico
+import styles from '@/app/styles/login/login.module.css';
+import '@/app/globals.css';
 
 interface LoginFormProps {
   onSubmit: (username: string, password: string, rememberMe: boolean) => void;

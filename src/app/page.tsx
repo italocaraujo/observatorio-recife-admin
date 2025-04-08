@@ -1,8 +1,7 @@
 // app/login/page.tsx
-'use client'; // Adiciona a diretiva 'use client' para o Next.js 13
-
+'use client'; 
 import { useRouter } from 'next/navigation';
-import LoginForm from '../../component/login/LoginForm'; // Caminho correto para o componente LoginForm
+import LoginForm from '../../component/login/LoginForm';
 import styles from '@/app/styles/login/login.module.css';
 
 export default function Login() {

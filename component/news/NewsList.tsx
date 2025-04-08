@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@/app/styles/news/NewsList.module.css';
 
 interface NewsItem {
@@ -13,7 +13,7 @@ interface NewsItem {
 interface NewsListProps {
   newsData: NewsItem[];
   onDelete: (id: number) => Promise<boolean>;
-  onEdit?: (id: number) => void;
+  onEdit?: (news: NewsItem) => void; // Passando a função onEdit para editar a notícia
 }
 
 const NewsList: React.FC<NewsListProps> = ({ 
@@ -21,6 +21,16 @@ const NewsList: React.FC<NewsListProps> = ({
   onDelete,
   onEdit 
 }) => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  // Filtra as notícias com base no título ou descrição
+  const filteredNews = newsData.filter((news) => {
+    return (
+      news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      news.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   // Validação de dados
   if (!Array.isArray(newsData)) {
     return (
@@ -30,7 +40,7 @@ const NewsList: React.FC<NewsListProps> = ({
     );
   }
 
-  const sortedNews = [...newsData].sort((a, b) => b.id - a.id);
+  const sortedNews = [...filteredNews].sort((a, b) => b.id - a.id);
 
   const handleDelete = async (id: number) => {
     if (window.confirm('Tem certeza que deseja excluir esta notícia?')) {
@@ -44,6 +54,21 @@ const NewsList: React.FC<NewsListProps> = ({
 
   return (
     <div className={styles.newsContainer}>
+      <div className={styles.searchContainer}>
+        <div className={styles.searchIcon}>
+          <svg width="24px" height="24px" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.49 19l-5.73-5.73C15.53 12.2 16 10.91 16 9.5A6.5 6.5 0 1 0 9.5 16c1.41 0 2.7-.47 3.77-1.24L19 20.49 20.49 19zM5 9.5C5 7.01 7.01 5 9.5 5S14 7.01 14 9.5 11.99 14 9.5 14 5 11.99 5 9.5z"></path>
+          </svg>
+        </div>
+        <input 
+          type="text" 
+          placeholder="Pesquisar notícias..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
+      </div>
+
       {sortedNews.length === 0 ? (
         <div className={styles.emptyMessage}>
           Nenhuma notícia encontrada.
@@ -83,7 +108,7 @@ const NewsList: React.FC<NewsListProps> = ({
               <div className={styles.newsActions}>
                 {onEdit && (
                   <button 
-                    onClick={() => onEdit(news.id)}
+                    onClick={() => onEdit(news)}
                     className={styles.editButton}
                   >
                     Editar

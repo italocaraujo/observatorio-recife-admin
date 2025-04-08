@@ -1,23 +1,22 @@
-/* Definições de cores para o modo claro */
 :root {
-  --background: #ffffff; /* Cor de fundo do modo claro */
-  --foreground: #4b4b4b; /* Cor de texto do modo claro */
+  --background: #ffffff;
+  --foreground: #4b4b4b;
 
-  /* sidebar */
+  /* Sidebar */
   --background-sidebar: #f0f4f9;
   --item-sidebar-hover: #dfe3e7;
   --item-sidebar-activated: #c2e7ff;
 
-  /* headbar */
+  /* Headbar */
   --background-headbar: #f0f4f9;
   --fill-icons: #4b4b4b;
 
   --gray-border: rgb(196,199,197);
 
-
+  /* Gradient Button */
   --gradient: linear-gradient(to right, #3b82f6, #1d4ed8);
 
-  /* login form */
+  /* Login Form */
   --background-login-form: #f0f0f0;
 
   --item-hover: #f0f1f0;
@@ -32,9 +31,14 @@
   --card-news-description: #333;
   --card-news-actions: #f9fafb;
   --card-news-border: #e5e7eb;
+  --edit-button-background: #e0f2fe;
+  --edit-button-text: #0369a1;
+  --edit-button-hover: #bae6fd;
   --delete-button-background: #fee2e2;
   --delete-button-hover: #fecaca;
   --delete-button-text: #b91c1c;
+  --input-search-background: #e9eef6;
+  --input-search-icon: #444746;
 }
 
 /* Estilos para o modo escuro */
@@ -70,9 +74,14 @@ body.dark-mode {
   --card-news-description: #c4c7c5;
   --card-news-actions: #1e1f20;
   --card-news-border: #444746;
+  --edit-button-background: #1562bb;
+  --edit-button-text: #fff;
+  --edit-button-hover: #14549e;
   --delete-button-background: #bb2115;
   --delete-button-hover: #9e1414;
   --delete-button-text: #fff;
+  --input-search-background: #282a2c;
+  --input-search-icon: #c4c7c5;
 }
 
 /* Estilos gerais para o HTML e Body */
@@ -137,11 +146,11 @@ button {
   border: none;
   font-size: 24px;
   cursor: pointer;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 input {
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body.dark-mode input, textarea{
