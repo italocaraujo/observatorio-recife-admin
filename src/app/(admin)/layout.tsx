@@ -1,5 +1,5 @@
-import Sidebar from "../../../component/home/Sidebar";
-import HeadBar from "../../../component/home/HeadBar";
+import Sidebar from "@/components/layout/Sidebar";
+import HeadBar from "@/components/layout/HeadBar";
 import Head from "next/head"; 
 import "../globals.css";
 

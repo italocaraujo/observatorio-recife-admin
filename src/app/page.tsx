@@ -1,18 +1,16 @@
 // app/login/page.tsx
 'use client'; 
 import { useRouter } from 'next/navigation';
-import LoginForm from '../../component/login/LoginForm';
+import LoginForm from '@/components/login/LoginForm';
 import styles from '@/app/styles/login/login.module.css';
 
 export default function Login() {
   const router = useRouter();
 
   const handleLogin = (username: string, password: string, rememberMe: boolean) => {
-    // Simulação de validação de login (isso pode ser substituído por autenticação real)
     if (username === 'admin' && password === 'observatorio') {
-      // Salvar o estado de autenticação no localStorage
       localStorage.setItem('isAuthenticated', 'true');
-      router.push('/home');  // Redireciona para a página inicial após login bem-sucedido
+      router.push('/home'); 
     } else {
       alert('Credenciais inválidas');
     }
