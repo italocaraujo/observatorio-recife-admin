@@ -116,7 +116,7 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess }) 
             value={formData.title}
             onChange={handleChange}
             required
-            maxLength={100}
+            maxLength={200}
           />
         </div>
 

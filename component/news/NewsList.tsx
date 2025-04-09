@@ -13,7 +13,7 @@ interface NewsItem {
 interface NewsListProps {
   newsData: NewsItem[];
   onDelete: (id: number) => Promise<boolean>;
-  onEdit?: (news: NewsItem) => void; // Passando a função onEdit para editar a notícia
+  onEdit?: (news: NewsItem) => void;
 }
 
 const NewsList: React.FC<NewsListProps> = ({ 
