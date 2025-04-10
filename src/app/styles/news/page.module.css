@@ -1,64 +1,4 @@
-/* Container principal para a página */
-.container {
-  inset: 64px 0 0 256px;
-  display: flex;
-  background-color: var(--background);
-  position: absolute;
-  border-radius: 16px;
-  margin: 15px 15px 15px 0;
-}
-
-  /* Container de conteúdo */
-  .contentContainer {
-    overflow-x: hidden;
-    inset: 0 16px 16px 0;
-    border-radius: 16px;
-    position: absolute;
-    outline: none;
-    padding-top: 12px;
-  }
-
-  .titleContainer {
-    border-bottom: 1px solid var(--gray-border);
-    display: flex;
-    -moz-box-orient: vertical;
-    -moz-box-direction: normal;
-    flex-direction: column;
-    height: 56px;
-    -moz-box-pack: center;
-    justify-content: center;
-    left: 0;
-    margin: 0 auto;
-    max-width: none;
-    padding: 0 16px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 199;
-    margin-top: 15px;
-    background-color: var(--background);
-  }
-
-  .title {
-    -moz-box-align: center;
-    align-items: center;
-    display: flex;
-    width: 100%;
-    height: 56px;
-  }
-  
-  .title h1 {
-    padding-left: 2px;
-    overflow: hidden;
-    flex-shrink: 0;
-    line-height: 1.75rem;
-    font-size: 1.375rem;
-    letter-spacing: 0em;
-    font-weight: 400;
-    margin: 14.74px 0;
-  }
-
-  .contentSectionNews {
+ .contentSectionNews {
     padding: 24px 16px 0 16px;
     top: 57px;
     min-height: auto;
@@ -71,7 +11,7 @@
 
   .tabButtons {
     padding: 0 4px;
-  margin-bottom: 16px;
+    margin-bottom: 16px;
   }
 
   .buttonsTabContent {
@@ -81,7 +21,7 @@
     gap: 16px 8px;
   }
 
-  .buttonsTabContent button {
+  .tabButton {
     font-size: 1rem;
     color: var(--foreground);
     padding: 2px 8px;
@@ -89,7 +29,7 @@
     border-radius: 7px;
   }
   
-  .tabButtons button:hover {
+  .tabButton:hover {
     background-color: var(--item-hover);
   }
 
@@ -185,6 +125,19 @@
     to {
       opacity: 0;
     }
+  }
+  
+  .activeTab {
+    background-color: var(--tab-color);
+    font-size: 1rem;
+    color: var(--tab-text-color);
+    padding: 2px 8px;
+    border: 1px solid var(--tab-color);
+    border-radius: 7px;
+  }
+
+  .activeTab:hover {
+    background-color: var(--tab-color);
   }
   
   

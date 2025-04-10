@@ -1,18 +1,16 @@
-/* Sidebar fixa na tela */
 .sidebar {
-  position: fixed; /* A sidebar vai ser fixa na tela */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 240px;
   height: 100vh;
-  background-color: var(--background-sidebar); /* Usando a variável para o fundo */
-  color: var(--foreground); /* Usando a variável para a cor do texto */
+  background-color: var(--background-sidebar);
+  color: var(--foreground);
   padding: 16px;
   transition: transform 0.3s ease;
-  z-index: 1000; /* Garante que a sidebar fique acima de outros elementos */
+  z-index: 1000; 
 }
 
-/* Sidebar visível no desktop (permanente) */
 @media (min-width: 768px) {
   .sidebar {
     transform: none;
@@ -21,20 +19,19 @@
 
   .toggleButtonClose,
   .toggleButtonOpen {
-    display: none; /* Esconde os botões de toggle no desktop */
+    display: none; 
   }
 }
 
-/* Para dispositivos móveis, o botão de toggle aparece */
 @media (max-width: 767px) {
   .sidebar {
-    transform: translateX(-250px); /* A sidebar começa fora da tela */
+    transform: translateX(-250px);
     left: 0;
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
   }
 
   .sidebar.open {
-    transform: translateX(0); /* Move a sidebar para dentro da tela */
+    transform: translateX(0); 
   }
 
   .toggleButtonClose {
@@ -49,7 +46,7 @@
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 1100; /* Garante que o botão fique acima de outros elementos na sidebar */
+    z-index: 1100;
   }
 
   .toggleButtonOpen {
@@ -72,7 +69,7 @@
 }
 
 .menuTitle {
-  color: var(--foreground); /* Usando variável para o texto */
+  color: var(--foreground);
   font-size: 0.8rem;
   font-weight: 700;
   margin-bottom: 8px;
@@ -84,23 +81,22 @@
 }
 
 .nav ul li a {
-  color: var(--foreground); /* Usando variável para o texto */
+  color: var(--foreground); 
   text-decoration: none;
   display: block;
   padding: 16px;
   border-radius: 8px;
   font-size: 0.875rem;
   font-weight: 500;
-  transition: background-color 0.3s ease; /* Suaviza a transição de cor */
+  transition: background-color 0.3s ease; 
 }
 
 .nav ul li a:hover {
-  background-color: var(--item-sidebar-hover); /* Altera a cor de fundo ao passar o mouse */
+  background-color: var(--item-sidebar-hover); 
 }
 
-/* Quando o link está ativo, muda a cor de fundo */
 .nav ul li a.activeLink {
-  background-color: var(--item-sidebar-activated); /* Cor de fundo quando o link está ativo */
+  background-color: var(--item-sidebar-activated); 
   font-weight: 600;
 }
 

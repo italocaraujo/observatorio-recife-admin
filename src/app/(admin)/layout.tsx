@@ -8,7 +8,6 @@ const sidebarLinks = [
   { href: "/users", label: "Usuários" },
   { href: "/news", label: "Notícias" },
   { href: "/security", label: "Segurança" },
-  { href: "/settings", label: "Configurações" }, 
 ];
 
 export default function RootLayout({

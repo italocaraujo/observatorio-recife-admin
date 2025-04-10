@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { NewsItem, fetchNews, handleCreateNews, handleDeleteNews, handleSave } from "@/@api/http/news/newsActions"; // Importando as funções
+import { NewsItem, fetchNews, handleCreateNews, handleDeleteNews, handleSave } from "@/@api/http/news/newsActions";
 import CreateNews from "@/components/news/CreateNews";
 import NewsList from "@/components/news/NewsList";
 import EditNews from "@/components/news/EditNews";
 import styles from '@/app/styles/news/page.module.css';
+import additionalStyles from '@/app/styles/layout/LayoutPage.module.css';
+
 
 export default function News() {
   const [activeTab, setActiveTab] = useState<'create' | 'view'>('create');
@@ -32,10 +34,10 @@ export default function News() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.contentContainer}>
-        <div className={styles.titleContainer}>
-          <div className={styles.title}>
+    <div className={additionalStyles.container}>
+      <div className={additionalStyles.contentContainer}>
+        <div className={additionalStyles.titleContainer}>
+          <div className={additionalStyles.title}>
             <h1>Notícias</h1>
           </div>
         </div>
@@ -45,13 +47,13 @@ export default function News() {
             <div className={styles.buttonsTabContent}>
               <button 
                 onClick={() => handleTabChange('create')}
-                className={activeTab === 'create' ? styles.activeTab : ''}
+                className={activeTab === 'create' ? styles.activeTab : styles.tabButton}
               >
                 Criar Notícia
               </button>
               <button 
                 onClick={() => handleTabChange('view')}
-                className={activeTab === 'view' ? styles.activeTab : ''}
+                className={activeTab === 'view' ? styles.activeTab : styles.tabButton}
               >
                 Visualizar Notícias
               </button>
@@ -79,12 +81,13 @@ export default function News() {
         </section>
       </div>
       {editingNews && (
-        <EditNews 
-          newsToEdit={editingNews}
-          onSave={(editedNews) => handleSave(editedNews, newsData, setNewsData, setEditingNews, setSuccessMessage)}
-          onCancel={() => setEditingNews(null)} 
-          isOpen={true}
-        />
+        <EditNews
+        newsToEdit={editingNews!}
+        onSave={(editedNews, imageFile) => handleSave(editedNews, newsData, setNewsData, setEditingNews, setSuccessMessage, setError, imageFile)} 
+        onCancel={() => setEditingNews(null)}
+        isOpen={!!editingNews}
+        setError={setError} 
+      />
       )}
     </div>
   );

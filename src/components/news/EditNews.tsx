@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { handleSave } from '@/@api/http/news/newsActions';
 import styles from '@/app/styles/news/CreateNews.module.css';
 
 interface NewsItem {
@@ -12,16 +13,18 @@ interface NewsItem {
 
 interface EditNewsProps {
   newsToEdit: NewsItem;
-  onSave: (editedNews: NewsItem) => void;
+  onSave: (editedNews: NewsItem, imageFile: File | null) => void;
   onCancel: () => void;
-  isOpen: boolean;  // Controle para abrir ou fechar o modal
+  isOpen: boolean;
+  setError: React.Dispatch<React.SetStateAction<string | null>>; // Definir setError como prop
 }
 
-const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onSave, onCancel, isOpen }) => {
+const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onSave, onCancel, isOpen, setError }) => {
   const [formData, setFormData] = useState<NewsItem>(newsToEdit);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   useEffect(() => {
-    setFormData(newsToEdit); // Preenche os campos com os dados da notícia
+    setFormData(newsToEdit);
   }, [newsToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,14 +32,28 @@ const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onSave, onCancel, isOpe
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file); 
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData); // Chama a função de salvar com os dados atualizados
+    handleSave(
+      formData,  // Passando a notícia editada
+      [],  // Passando um array vazio (deve ser corrigido no contexto onde você usa)
+      () => {},  // Função setNewsData
+      () => {},  // Função setEditingNews
+      () => {},  // Função setSuccessMessage
+      setError,  // Passando a função setError
+      imageFile
+    );
   };
 
   return (
     <>
-      {/* Modal Wrapper */}
       {isOpen && (
         <div className={styles.modalBackdrop}>
           <div className={styles.modalContainer}>
@@ -45,45 +62,50 @@ const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onSave, onCancel, isOpe
 
               <form onSubmit={handleSubmit} className={styles.formCreateNews}>
                 <div className={styles.inputContainer}>
-                  <label htmlFor="title">Título*</label>
+                  <label htmlFor="title">Título</label>
                   <input
                     type="text"
                     id="title"
                     value={formData.title}
                     onChange={handleChange}
-                    required
                   />
                 </div>
 
                 <div className={styles.inputContainer}>
-                  <label htmlFor="description">Descrição*</label>
+                  <label htmlFor="description">Descrição</label>
                   <textarea
                     id="description"
                     value={formData.description}
                     onChange={handleChange}
-                    required
                   />
                 </div>
 
                 <div className={styles.inputContainer}>
-                  <label htmlFor="date">Data*</label>
+                  <label htmlFor="date">Data</label>
                   <input
                     type="date"
                     id="date"
                     value={formData.date}
                     onChange={handleChange}
-                    required
                   />
                 </div>
 
                 <div className={styles.inputContainer}>
-                  <label htmlFor="link">Link*</label>
+                  <label htmlFor="link">Link</label>
                   <input
                     type="url"
                     id="link"
                     value={formData.link}
                     onChange={handleChange}
-                    required
+                  />
+                </div>
+
+                <div className={styles.inputContainer}>
+                  <label htmlFor="image">Alterar Imagem</label>
+                  <input
+                    type="file"
+                    id="image"
+                    onChange={handleImageChange}
                   />
                 </div>
 

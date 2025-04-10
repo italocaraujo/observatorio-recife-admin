@@ -7,6 +7,10 @@ export interface NewsItem {
     link: string;
 }
 
+function setError(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+
 export const fetchNews = async (setNewsData: React.Dispatch<React.SetStateAction<NewsItem[]>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>, setError: React.Dispatch<React.SetStateAction<string | null>>) => {
   setLoading(true);
   setError(null);
@@ -97,18 +101,56 @@ export const handleDeleteNews = async (id: number, newsData: NewsItem[], setNews
   }
 };
 
-export const handleSave = (editedNews: NewsItem, newsData: NewsItem[], setNewsData: React.Dispatch<React.SetStateAction<NewsItem[]>>, setEditingNews: React.Dispatch<React.SetStateAction<NewsItem | null>>, setSuccessMessage: React.Dispatch<React.SetStateAction<string | null>>) => {
-  const updatedNewsData = newsData.map(news => 
-    news.id === editedNews.id ? editedNews : news
-  );
-  setNewsData(updatedNewsData);
-  setEditingNews(null); // Fecha o modal após salvar
-  setSuccessMessage('Notícia atualizada com sucesso!');
-  setTimeout(() => {
-    setSuccessMessage(null);
-  }, 3000);
+export const handleSave = async (
+  editedNews: NewsItem, 
+  newsData: NewsItem[], 
+  setNewsData: React.Dispatch<React.SetStateAction<NewsItem[]>>, 
+  setEditingNews: React.Dispatch<React.SetStateAction<NewsItem | null>>, 
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string | null>>,
+  setError: React.Dispatch<React.SetStateAction<string | null>>, 
+  imageFile: File | null // Passando a imagem
+) => {
+  const formData = new FormData();
+  formData.append('news', JSON.stringify(editedNews));
+
+  if (imageFile) {
+    formData.append('image', imageFile);
+  }
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/news/newsData/${editedNews.id}`, {
+      method: 'PUT',
+      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+      },
+    });
+
+    if (response.ok) {
+      const updatedNews = await response.json();
+
+      const updatedNewsData = newsData.map(news =>
+        news.id === updatedNews.id ? updatedNews : news
+      );
+      setNewsData(updatedNewsData);
+      setEditingNews(null);
+
+      setSuccessMessage('Notícia atualizada com sucesso!');
+
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    } else {
+      const errorData = await response.json();
+      setError(errorData.message || 'Erro ao atualizar notícia');
+    }
+  } catch (error) {
+    setError('Erro ao fazer a requisição');
+    console.error('Erro ao salvar a notícia:', error);
+  }
 };
-function setError(arg0: string) {
-    throw new Error("Function not implemented.");
-}
+
+
+
 

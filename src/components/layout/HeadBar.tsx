@@ -1,18 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import styles from '@/app/styles/home/HeadBar.module.css'; // Importando os estilos
+import styles from '@/app/styles/layout/HeadBar.module.css';
 
 const Headbar = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Verifica se o localStorage contém uma preferência de tema
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
       setIsDarkMode(savedTheme === 'dark');
-      
-      // Aplica o tema no body, baseado no localStorage
+    
       if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
       } else {
@@ -23,15 +21,13 @@ const Headbar = () => {
 
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
-    setIsDarkMode(newMode); // Atualiza o estado corretamente
-    // Altera a classe 'dark-mode' no body
+    setIsDarkMode(newMode);
     document.body.classList.toggle('dark-mode', newMode);
-    // Atualiza o localStorage para persistir a preferência de tema
     localStorage.setItem('theme', newMode ? 'dark' : 'light');
   };
 
   if (isDarkMode === null) {
-    return null; // Ou um componente de carregamento, enquanto o estado é decidido
+    return null; 
   }
 
   return (

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import styles from '@/app/styles/home/Sidebar.module.css';
+import styles from '@/app/styles/layout/Sidebar.module.css';
 
 interface SidebarProps {
   links: { href: string; label: string }[];
@@ -13,10 +13,8 @@ const Sidebar: React.FC<SidebarProps> = ({ links }) => {
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
 
-  // Função para alternar a visibilidade da sidebar
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
-  // Fecha a sidebar ao clicar fora dela
   const handleClickOutside = (e: MouseEvent) => {
     if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
       setIsOpen(false);
@@ -28,7 +26,6 @@ const Sidebar: React.FC<SidebarProps> = ({ links }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Verifica se o link está ativo com base na URL atual
   const isActiveLink = (href: string) => (pathname === href ? styles.activeLink : '');
 
   useEffect(() => {
@@ -106,8 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({ links }) => {
           </ul>
         </nav>
       </div>
-
-      {/* Botão para abrir a sidebar apenas em dispositivos móveis */}
+      
       <button className={styles.toggleButtonOpen} onClick={toggleSidebar}>
         {isOpen ? 
         '' 
