@@ -68,9 +68,8 @@ export default function News() {
 
           {activeTab === 'create' ? (
             <CreateNews 
-              handleCreateNews={(formData) => handleCreateNews(formData, setSuccessMessage, setForceRefresh)} onSuccess={function (): void {
-                throw new Error("Function not implemented.");
-              } }            />
+              handleCreateNews={(formData) => handleCreateNews(formData, setSuccessMessage, setForceRefresh)} 
+              onSuccess={() => {}}/>
           ) : (
             <NewsList 
               newsData={newsData} 
@@ -82,12 +81,14 @@ export default function News() {
       </div>
       {editingNews && (
         <EditNews
-        newsToEdit={editingNews!}
-        onSave={(editedNews, imageFile) => handleSave(editedNews, newsData, setNewsData, setEditingNews, setSuccessMessage, setError, imageFile)} 
-        onCancel={() => setEditingNews(null)}
-        isOpen={!!editingNews}
-        setError={setError} 
-      />
+          newsToEdit={editingNews!}
+          onSave={(editedNews, imageFile) => handleSave(editedNews, newsData, setNewsData, setEditingNews, setSuccessMessage, setError, imageFile, setForceRefresh)}
+          onCancel={() => setEditingNews(null)}
+          isOpen={!!editingNews}
+          setError={setError}
+          setSuccessMessage={setSuccessMessage} 
+          setForceRefresh={setForceRefresh}
+        />
       )}
     </div>
   );

@@ -16,10 +16,12 @@ interface EditNewsProps {
   onSave: (editedNews: NewsItem, imageFile: File | null) => void;
   onCancel: () => void;
   isOpen: boolean;
-  setError: React.Dispatch<React.SetStateAction<string | null>>; // Definir setError como prop
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string | null>>;
+  setForceRefresh: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onSave, onCancel, isOpen, setError }) => {
+const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onCancel, isOpen, setError, setSuccessMessage, setForceRefresh, }) => {
   const [formData, setFormData] = useState<NewsItem>(newsToEdit);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -35,21 +37,33 @@ const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onSave, onCancel, isOpe
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file); 
+      setImageFile(file);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSave(
-      formData,  // Passando a notícia editada
-      [],  // Passando um array vazio (deve ser corrigido no contexto onde você usa)
-      () => {},  // Função setNewsData
-      () => {},  // Função setEditingNews
-      () => {},  // Função setSuccessMessage
-      setError,  // Passando a função setError
-      imageFile
-    );
+      formData, 
+      [],  
+      () => {},  
+      () => {},
+      () => {},  
+      setError,  
+      imageFile,
+      setForceRefresh
+    ).then(() => {
+      onCancel();
+      
+      setSuccessMessage('Notícia alterada com sucesso!');
+
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    }).catch((err) => {
+      console.error('Erro ao salvar a notícia:', err);
+      setError('Erro ao salvar a notícia');
+    });
   };
 
   return (

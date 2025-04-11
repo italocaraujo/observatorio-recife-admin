@@ -1,13 +1,13 @@
 export interface NewsItem {
-    id: number;
-    title: string;
-    description: string;
-    image: string;
-    date: string;
-    link: string;
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+  link: string;
 }
 
-function setError(arg0: string) {
+function setError(_arg0: string) {
   throw new Error("Function not implemented.");
 }
 
@@ -61,7 +61,7 @@ export const handleCreateNews = async (formData: FormData, setSuccessMessage: Re
 
     setSuccessMessage("Notícia adicionada com sucesso!");
     setTimeout(() => {
-      setSuccessMessage(null); // Limpa a mensagem após 3 segundos
+      setSuccessMessage(null); 
     }, 3000);
 
     setForceRefresh(prev => prev + 1);
@@ -108,11 +108,13 @@ export const handleSave = async (
   setEditingNews: React.Dispatch<React.SetStateAction<NewsItem | null>>, 
   setSuccessMessage: React.Dispatch<React.SetStateAction<string | null>>,
   setError: React.Dispatch<React.SetStateAction<string | null>>, 
-  imageFile: File | null // Passando a imagem
+  imageFile: File | null,
+  setForceRefresh: React.Dispatch<React.SetStateAction<number>> // Adicionamos o setForceRefresh
 ) => {
   const formData = new FormData();
   formData.append('news', JSON.stringify(editedNews));
 
+  // Se uma imagem for selecionada, anexa ao FormData
   if (imageFile) {
     formData.append('image', imageFile);
   }
@@ -122,7 +124,6 @@ export const handleSave = async (
       method: 'PUT',
       body: formData,
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
       },
     });
@@ -130,17 +131,21 @@ export const handleSave = async (
     if (response.ok) {
       const updatedNews = await response.json();
 
+      // Atualiza a lista de notícias no estado
       const updatedNewsData = newsData.map(news =>
         news.id === updatedNews.id ? updatedNews : news
       );
       setNewsData(updatedNewsData);
-      setEditingNews(null);
+      setEditingNews(null); 
 
+      // Exibe a mensagem de sucesso
       setSuccessMessage('Notícia atualizada com sucesso!');
-
       setTimeout(() => {
         setSuccessMessage(null);
       }, 3000);
+
+      // Força o refresh dos dados
+      setForceRefresh(prev => prev + 1); // Isso vai atualizar os dados da lista de notícias
     } else {
       const errorData = await response.json();
       setError(errorData.message || 'Erro ao atualizar notícia');
@@ -150,7 +155,3 @@ export const handleSave = async (
     console.error('Erro ao salvar a notícia:', error);
   }
 };
-
-
-
-

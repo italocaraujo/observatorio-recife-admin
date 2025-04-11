@@ -89,6 +89,8 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    position: fixed;
+    z-index: 1000;
     opacity: 0;
     animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
     animation-delay: 0s, 2.5s;
