@@ -4,9 +4,13 @@ import Head from "next/head";
 import "../globals.css";
 
 const sidebarLinks = [
-  { href: "/home", label: "Página Inicial" },
-  { href: "/users", label: "Usuários" },
+  { href: "/home", label: "Dashboard" },
   { href: "/news", label: "Notícias" },
+];
+
+const sidebarLinksAdmin = [
+  { href: "/pages", label: "Páginas" },
+  { href: "/users", label: "Usuários" },
   { href: "/security", label: "Segurança" },
 ];
 
@@ -22,7 +26,7 @@ export default function RootLayout({
         <link rel="favicon" href="/favicon.ico" /> 
       </Head>
       <HeadBar />
-      <Sidebar links={sidebarLinks} />
+      <Sidebar links={sidebarLinks} linksAdmin={sidebarLinksAdmin} />
       <div>
         {children}
       </div>

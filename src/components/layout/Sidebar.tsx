@@ -6,9 +6,10 @@ import styles from '@/app/styles/layout/Sidebar.module.css';
 
 interface SidebarProps {
   links: { href: string; label: string }[];
+  linksAdmin: { href: string; label: string }[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ links }) => {
+const Sidebar: React.FC<SidebarProps> = ({ links, linksAdmin }) => {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
@@ -94,6 +95,18 @@ const Sidebar: React.FC<SidebarProps> = ({ links }) => {
           <p className={styles.menuTitle}>Menu</p>
           <ul>
             {links.map(({ href, label }) => (
+              <li key={href}>
+                <a href={href} className={isActiveLink(href)}>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav className={styles.nav}>
+          <p className={styles.menuTitle}>Admin</p>
+          <ul>
+            {linksAdmin.map(({ href, label }) => (
               <li key={href}>
                 <a href={href} className={isActiveLink(href)}>
                   {label}

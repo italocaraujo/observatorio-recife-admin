@@ -75,6 +75,10 @@
   margin-bottom: 8px;
 }
 
+.nav {
+  margin-bottom: 20px;
+}
+
 .nav ul {
   list-style: none;
   padding: 0;
