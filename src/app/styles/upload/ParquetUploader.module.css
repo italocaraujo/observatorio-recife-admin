@@ -1,0 +1,182 @@
+.container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 32px;
+  background-color: var(--background);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Área de drag and drop */
+.dropzone {
+  border: 2px dashed var(--card-news-border);
+  border-radius: 12px;
+  padding: 48px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--backgroundSecondary);
+  position: relative;
+}
+
+.dropzone:hover {
+  border-color: var(--edit-button-background);
+  background-color: var(--item-hover);
+}
+
+.dropzone.dragging {
+  border-color: var(--edit-button-background);
+  background-color: #bfdbfe;
+  transform: scale(1.01);
+}
+
+.dropzoneText {
+  color: var(--card-news-description);
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.fileInputWrapper {
+  position: relative;
+}
+
+.fileInput {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.uploadButton {
+  position: relative;
+  z-index: 1;
+  padding: 12px 24px;
+  background-color: var(--edit-button-background);
+  color: var(--edit-button-text);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.uploadButton:hover {
+  background-color: var(--edit-button-hover);
+}
+
+/* Lista de arquivos */
+.fileListContainer {
+  padding: 20px;
+  margin-top: 16px;
+  background-color: var(--backgroundSecondary);
+  border-radius: 16px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.03);
+}
+
+.fileListTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--card-news-title);
+  margin-bottom: 12px;
+}
+
+.fileList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fileItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--card-news-description);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.fileItem:hover {
+  background-color: var(--item-hover);
+}
+
+.fileName {
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: var(--delete-button-text);
+  font-size: 13px;
+  cursor: pointer;
+  padding-left: 12px;
+  transition: color 0.2s ease-in-out;
+}
+
+.removeButton:hover {
+  color: #c21807;
+}
+
+/* Botão final */
+.buttonContainer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitButton,
+.submitButtonDisabled {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submitButton {
+  background-color: var(--edit-button-background);
+  color: var(--edit-button-text);
+}
+
+.submitButton:hover {
+  background-color: var(--edit-button-hover);
+}
+
+.submitButtonDisabled {
+  background-color: var(--background-button-disabled);
+  color: var(--text-button-disabled);
+}

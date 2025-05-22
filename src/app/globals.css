@@ -2,6 +2,8 @@
   --background: #ffffff;
   --foreground: #4b4b4b;
 
+  --backgroundSecondary: #f0f4f9;
+
   /* Sidebar */
   --background-sidebar: #f0f4f9;
   --item-sidebar-hover: #dfe3e7;
@@ -43,12 +45,17 @@
     /* Tab News Page */
     --tab-color: #c2e7ff;
     --tab-text-color: #001d35;
+
+    --background-button-disabled: #d1d5db;
+    --text-button-disabled: #9ca3af;
 }
 
 /* Estilos para o modo escuro */
 body.dark-mode {
   --background: #151515; /* Cor de fundo do modo escuro */
   --foreground: #c4c7c5; /* Cor de texto do modo escuro */
+
+  --backgroundSecondary: #1e1f20;
 
   /* sidebar */
   --background-sidebar: #1e1f20;
@@ -90,6 +97,9 @@ body.dark-mode {
   /* Tab News Page */
   --tab-color: #004a77;
   --tab-text-color: #c2e7ff;
+
+  --background-button-disabled: #444746;
+  --text-button-disabled: #9ca3af;
 }
 
 /* Estilos gerais para o HTML e Body */

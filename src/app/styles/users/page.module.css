@@ -1,0 +1,65 @@
+/* Container principal da página */
+.container {
+  max-width: 100%;
+  padding: 32px;
+  background-color: var(--background);
+  color: var(--foreground);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Cabeçalho da página */
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.title h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--card-news-title);
+}
+
+/* Botão para adicionar novo usuário */
+.newUserButton {
+  padding: 10px 20px;
+  background: var(--gradient);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.newUserButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabela de usuários */
+.userTableContainer {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  background-color: var(--card-list-news);
+  box-shadow: inset 0 0 0 1px var(--card-news-border);
+}
+
+/* Responsividade móvel */
+@media (max-width: 768px) {
+  .title h1 {
+    font-size: 22px;
+  }
+
+  .newUserButton {
+    width: 100%;
+    text-align: center;
+  }
+}

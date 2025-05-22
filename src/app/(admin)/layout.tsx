@@ -4,12 +4,13 @@ import Head from "next/head";
 import "../globals.css";
 
 const sidebarLinks = [
-  { href: "/home", label: "Dashboard" },
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/news", label: "Notícias" },
 ];
 
 const sidebarLinksAdmin = [
   { href: "/pages", label: "Páginas" },
+  { href: "/upload", label: "Upload" },
   { href: "/users", label: "Usuários" },
   { href: "/security", label: "Segurança" },
 ];

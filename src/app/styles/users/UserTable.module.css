@@ -1,0 +1,72 @@
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  background-color: var(--card-list-news);
+  box-shadow: inset 0 0 0 1px var(--card-news-border);
+  margin-top: 16px;
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+.userTable thead {
+  background-color: var(--backgroundSecondary);
+}
+
+.userTable th,
+.userTable td {
+  padding: 16px;
+  border-bottom: 1px solid var(--card-news-border);
+}
+
+.userTable th {
+  color: var(--card-news-title);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.row:hover {
+  background-color: var(--item-hover);
+}
+
+.noData {
+  text-align: center;
+  color: var(--card-news-date);
+  font-style: italic;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.editButton,
+.deleteButton {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.editButton {
+  color: var(--edit-button-text);
+}
+
+.editButton:hover {
+  text-decoration: underline;
+}
+
+.deleteButton {
+  color: var(--delete-button-text);
+}
+
+.deleteButton:hover {
+  text-decoration: underline;
+}

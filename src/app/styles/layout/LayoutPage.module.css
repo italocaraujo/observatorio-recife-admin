@@ -55,3 +55,73 @@
     font-weight: 400;
     margin: 14.74px 0;
 }
+
+.successMessage {
+    color: #065f46;
+    background-color: #d1fae5;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: fixed;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
+    animation-delay: 0s, 2.5s;
+  }
+  
+  .errorMessage {
+    color: #b91c1c;
+    background-color: #fee2e2;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
+    animation-delay: 0s, 2.5s;
+  }
+
+  .tabButtons {
+    padding: 0 4px;
+    margin-bottom: 16px;
+  }
+
+  .buttonsTabContent {
+    display: flex;
+    padding-block: calc(var(16px)/2);
+    flex-wrap: nowrap;
+    gap: 16px 8px;
+  }
+
+  .tabButton {
+    font-size: 1rem;
+    color: var(--foreground);
+    padding: 2px 8px;
+    border: 1px solid var(--foreground);
+    border-radius: 7px;
+  }
+  
+  .tabButton:hover {
+    background-color: var(--item-hover);
+  }
+
+  .activeTab {
+    background-color: var(--tab-color);
+    font-size: 1rem;
+    color: var(--tab-text-color);
+    padding: 2px 8px;
+    border: 1px solid var(--tab-color);
+    border-radius: 7px;
+  }
+
+  .activeTab:hover {
+    background-color: var(--tab-color);
+  }
+  
