@@ -1,12 +1,7 @@
  .contentSectionNews {
     padding: 24px 16px 0 16px;
-    top: 57px;
     min-height: auto;
-    position: absolute;
     overflow-y: auto;
-    left: 0;
-    right: 0;
-    bottom: 0;  
   }
 
   .tabButtons {

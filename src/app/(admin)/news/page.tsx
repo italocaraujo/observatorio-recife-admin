@@ -18,6 +18,7 @@ export default function News() {
   const [editingNews, setEditingNews] = useState<NewsItem | null>(null);
   const [forceRefresh, setForceRefresh] = useState<number>(0);
 
+  
   const handleTabChange = (tab: 'create' | 'view') => {
     setActiveTab(tab);
     if (tab === 'view') {

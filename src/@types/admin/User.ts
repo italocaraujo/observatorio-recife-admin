@@ -2,5 +2,7 @@ export interface User {
     id?: number; 
     name: string;
     email: string;
-    permissions: string[];
+    function: string;
+    status: string;
+    lastLogin: string;
 }

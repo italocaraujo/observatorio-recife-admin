@@ -1,37 +1,44 @@
+"use client";
+
 import Sidebar from "@/components/layout/Sidebar";
-import HeadBar from "@/components/layout/HeadBar";
 import Head from "next/head"; 
 import "../globals.css";
-
-const sidebarLinks = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/news", label: "Notícias" },
-];
-
-const sidebarLinksAdmin = [
-  { href: "/pages", label: "Páginas" },
-  { href: "/upload", label: "Upload" },
-  { href: "/users", label: "Usuários" },
-  { href: "/security", label: "Segurança" },
-];
+import styles from "@/app/styles/layout/LayoutPage.module.css";
+import { sidebarData } from "@/components/layout/SidebarData";
+import { SidebarProvider, useSidebar } from "@/contexts/SidebarContext";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  return (
+    <>
+      <SidebarProvider>
+        <LayoutContent>{children}</LayoutContent>
+      </SidebarProvider>
+    </>
+  );
+
+  function LayoutContent({ children }: { children: React.ReactNode }) {
+  const { isOpen, toggleSidebar } = useSidebar();
+
   return (
     <>
       <Head>
         <title>Observatório Admin</title>
         <link rel="favicon" href="/favicon.ico" /> 
       </Head>
-      <HeadBar />
-      <Sidebar links={sidebarLinks} linksAdmin={sidebarLinksAdmin} />
-      <div>
-        {children}
+      <div className={styles.mainPageContainer}>
+        <Sidebar links={sidebarData} isOpen={isOpen} toggleSidebar={toggleSidebar}/>
+        <main
+        className={isOpen ? styles.contentShifted : styles.content}
+        >
+          {children}
+        </main>
       </div>
-
     </>
   );
+}
 }

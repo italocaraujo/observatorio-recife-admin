@@ -1,10 +1,11 @@
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import Head from "next/head";
+import "./globals.css";
 
-const poppins = Poppins({
-  variable: "--font-poppins-sans",
+const inter = Inter({
+  variable: "--font-inter-sans",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export default function RootLayout({
@@ -20,7 +21,7 @@ export default function RootLayout({
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </head>
-      <body className={`${poppins.variable}`}>
+      <body className={`${inter.variable}`}>
         <div>
           {children}
         </div>

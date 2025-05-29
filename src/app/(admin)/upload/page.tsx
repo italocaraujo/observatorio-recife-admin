@@ -22,8 +22,8 @@ export default function SendFiles() {
   };
 
   return (
-    <div className={additionalStyles.container}>
-      <div className={additionalStyles.contentContainer}>
+    <main className={additionalStyles.mainContent}>
+      <div className={additionalStyles.container}>
         <div className={additionalStyles.titleContainer}>
           <div className={additionalStyles.title}>
             <h1>Upload</h1>
@@ -61,7 +61,6 @@ export default function SendFiles() {
           )}
         </section>
       </div>
-    </div>
-
+    </main>
   );
 }

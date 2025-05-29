@@ -1,46 +1,29 @@
-/* Container principal da página */
-.container {
-  max-width: 100%;
-  padding: 32px;
-  background-color: var(--background);
-  color: var(--foreground);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Cabeçalho da página */
-.titleContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.title h1 {
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--card-news-title);
-}
-
-/* Botão para adicionar novo usuário */
 .newUserButton {
-  padding: 10px 20px;
-  background: var(--gradient);
+  height: 2.5rem;
+  padding: 0.5rem 1rem ;
+  background: var(--blue);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .newUserButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--blue-hover);
+}
+
+.newUserButton svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 /* Tabela de usuários */

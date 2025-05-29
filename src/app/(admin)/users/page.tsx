@@ -7,6 +7,8 @@ import UserTable from "@/components/users/UserTable";
 import UserFormModal from "@/components/users/UserFormModal";
 import ConfirmDeleteModal from "@/components/users/ConfirmDeleteModal";
 import { User } from "@/@types/admin/User";
+import { useSidebar } from "@/contexts/SidebarContext";
+import { sidebarData } from "@/components/layout/SidebarData";
 
 interface Props {
   user: User | null;
@@ -18,21 +20,26 @@ export default function Users() {
   const [users, setUsers] = useState<User[]>([
     {
       id: 1,
-      name: "João Silva",
-      email: "joao@example.com",
-      permissions: ["dashboard", "settings"],
+      name: "Rodrigo Andrade",
+      email: "rodrigo.andrade@recife.pe.gov.br",
+      function: "Administrador",
+      status: "Ativo",
+      lastLogin: "2024-01-15 14:30",
     },
     {
       id: 2,
-      name: "Maria Oliveira",
-      email: "maria@example.com",
-      permissions: ["dashboard"],
+      name: "Vitoria Silva",
+      email: "vitoria.silva@recife.pe.gov.br",
+      function: "Editor",
+      status: "Inativo",
+      lastLogin: "2024-01-15 14:30",
     },
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState<User | null>(null);
   const [userToDelete, setUserToDelete] = useState<number | null>(null);
+  const { isOpen, toggleSidebar } = useSidebar();
 
   const handleSaveUser = (user: User) => {
     if (user.id) {
@@ -56,44 +63,56 @@ export default function Users() {
     }
   };
 
+
   return (
     <div className={additionalStyles.container}>
       <div className={additionalStyles.contentContainer}>
         <div className={additionalStyles.titleContainer}>
           <div className={additionalStyles.title}>
-            <h1>Usuários</h1>
+            <button className={additionalStyles.hideSidebar} onClick={toggleSidebar} aria-label={isOpen ? "Fechar menu" : "Abrir menu"}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>
+            </button>
+            <h2>Gestão de Usuários</h2>
+          </div>
+          <div className={additionalStyles.buttonContent}>
+            <button onClick={() => setIsModalOpen(true)} className={styles.newUserButton}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></svg>
+              Novo Usuário
+            </button>
           </div>
         </div>
 
-        <button onClick={() => setIsModalOpen(true)}>Novo Usuário</button>
+        <section className={styles.contentSectionUsers}>
 
-        <UserTable
+          <UserTable
           users={users}
           onEdit={(user) => {
             setUserToEdit(user);
             setIsModalOpen(true);
           }}
           onDelete={(id) => setUserToDelete(id ?? null)}
-        />
-
-        {isModalOpen && (
-          <UserFormModal
-            user={userToEdit}
-            onClose={() => {
-              setIsModalOpen(false);
-              setUserToEdit(null);
-            }}
-            onSave={handleSaveUser}
           />
-        )}
 
-        {userToDelete !== null && (
-          <ConfirmDeleteModal
-            message="Tem certeza que deseja excluir este usuário?"
-            onConfirm={handleDeleteUser}
-            onCancel={() => setUserToDelete(null)}
-          />
-        )}
+          {isModalOpen && (
+            <UserFormModal
+              user={userToEdit}
+              onClose={() => {
+                setIsModalOpen(false);
+                setUserToEdit(null);
+              } }
+              onSave={handleSaveUser} 
+              pages={sidebarData.map((item) => item.label)}            
+              />
+          )}
+
+          {userToDelete !== null && (
+            <ConfirmDeleteModal
+              message="Tem certeza que deseja excluir este usuário?"
+              onConfirm={handleDeleteUser}
+              onCancel={() => setUserToDelete(null)}
+            />
+          )}
+        </section>
       </div>
     </div>
   );

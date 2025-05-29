@@ -1,59 +1,78 @@
-.container {
-    inset: 64px 0 0 256px;
-    display: flex;
-    background-color: var(--background);
-    position: absolute;
-    border-radius: 16px;
-    margin: 15px 15px 15px 0;
-  }
+.mainPageContainer {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  overflow: hidden;
+}
 
-.contentContainer {
-    overflow-x: hidden;
-    inset: 0 16px 16px 0;
-    border-radius: 16px;
-    position: absolute;
-    outline: none;
-    padding-top: 12px;
+.contentShifted {
+  flex-grow: 1;
+  margin-left: 250px; /* largura da sidebar */
+  transition: margin-left 0.2s ease;
+}
+
+/* Conteúdo com sidebar fechada: ocupa toda a largura */
+.content {
+  flex-grow: 1;
+  margin-left: 0;
+  transition: margin-left 0.2s ease;
+}
+
+.mainContent {
+  display: flex;
+  overflow: auto;
+  flex: 1 1 0%;
+}
+
+.container {
+  padding: 2rem;
+  width: 100%;
+}
+
+.contentContainer > *:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .titleContainer {
-    border-bottom: 1px solid var(--gray-border);
-    display: flex;
-    -moz-box-orient: vertical;
-    -moz-box-direction: normal;
-    flex-direction: column;
-    height: 56px;
-    -moz-box-pack: center;
-    justify-content: center;
-    left: 0;
-    margin: 0 auto;
-    max-width: none;
-    padding: 0 16px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 199;
-    margin-top: 15px;
-    background-color: var(--background);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .title {
-    -moz-box-align: center;
-    align-items: center;
-    display: flex;
-    width: 100%;
-    height: 56px;
+  display: flex;
+  width: 100%;
+  height: 56px;
+  align-items: center;
 }
 
-.title h1 {
-    padding-left: 2px;
-    overflow: hidden;
-    flex-shrink: 0;
-    line-height: 1.75rem;
-    font-size: 1.375rem;
-    letter-spacing: 0em;
-    font-weight: 400;
-    margin: 14.74px 0;
+.title h2 {
+  letter-spacing: -0.025em;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+.hideSidebar {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+}
+
+.hideSidebar:hover {
+  background-color: #f1f5f9;
+}
+
+.hideSidebar svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .successMessage {

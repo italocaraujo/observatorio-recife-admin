@@ -1,0 +1,249 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.form {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 425px;
+  width: 100%;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition-duration: 200ms;
+  border-width: 1px;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.title {
+  letter-spacing: -0.025em;
+  line-height: 1;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.formFields {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  gap: 1rem;
+  display: grid;
+}
+
+.inputContainer {
+  gap: 1rem;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.label {
+  line-height: 1;
+  font-weight: 500;
+  text-align: right;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.input {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-width: 1px;
+  border-radius: var(--radius);
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  grid-column: span 3 / span 3;
+}
+
+.input:focus {
+  border-color: var(--light-gray);
+  box-shadow: 0 0 0 4px transparent;
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.buttonFunctionUser {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border: solid 1px var(--light-gray);
+  border-radius: var(--radius);
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-column: span 3 / span 3;
+}
+
+.buttonFunctionUser:focus {
+  border-color: var(--light-gray);
+  box-shadow: 0 0 0 4px transparent;
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.buttonFunctionUser svg {
+  width: 1rem;
+  height: 1rem;
+  opacity: .5;
+}
+
+.placeholderButton {
+  pointer-events: none;
+}
+
+.permissionsFieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkboxContainer {
+  grid-column: span 3 / span 3; 
+}
+
+.checkboxContainer > *:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.checkbox > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxButton {
+  width: 1rem;
+  height: 1rem;
+  border: solid var(--blue);
+  border-width: 1px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.checkboxLabel {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.permissionCheckboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 8px;
+  width: 100%;
+  justify-content: end;
+}
+
+.saveButton,
+.cancelButton {
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: .5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.saveButton {
+  background-color: var(--blue);
+  color: #fff;
+}
+
+.saveButton:hover {
+  background-color: var(--blue-hover);
+}
+
+.cancelButton {
+  background-color: transparent;
+  color: var(--blue);
+  border: solid 1px var(--blue);
+}
+
+.cancelButton:hover {
+  background-color: #e1e5eb;
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 1.5rem 1.8rem;
+  }
+
+  .permissionCheckboxes {
+    flex-direction: column;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .saveButton,
+  .cancelButton {
+    width: 100%;
+  }
+}
+
+.buttonClose {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 5px;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}

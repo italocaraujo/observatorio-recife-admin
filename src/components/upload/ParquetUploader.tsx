@@ -109,7 +109,7 @@ const ParquetUploader: React.FC = () => {
               files.length > 0 ? styles.submitButton : styles.submitButtonDisabled
             }
           >
-            ✅ Enviar Arquivos
+            Enviar Arquivos
           </button>
         </div>
       </form>
