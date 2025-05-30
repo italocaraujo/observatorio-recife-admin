@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { User } from "@/@types/admin/User";
 import styles from "@/app/styles/users/UserFormModal.module.css";
+import SelectFunction from "./SelectFunction";
 
 interface Props {
   user: User | null;
@@ -87,15 +88,7 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
               />
           </div>
 
-          <div className={styles.inputContainer}>
-            <label className={styles.label}>
-              Função
-            </label>
-            <button type="button" className={styles.buttonFunctionUser}>
-              <span className={styles.placeholderButton}>Selecione uma função</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
-            </button>
-          </div>
+          <SelectFunction />
 
           <div className={styles.inputContainer} style={{ alignItems: "flex-start" }}>
             <label className={styles.label}>

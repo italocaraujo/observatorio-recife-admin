@@ -1,3 +1,5 @@
+import styles from "@/app/styles/users/UserFormModal.module.css";
+
 interface Props {
     message: string;
     onConfirm: () => void;
@@ -10,10 +12,14 @@ interface Props {
     onCancel,
   }: Props) {
     return (
-      <div className="modal">
-        <p>{message}</p>
-        <button onClick={onConfirm}>Sim</button>
-        <button onClick={onCancel}>Não</button>
+      <div className={styles.modal}>
+        <form className={styles.form}>
+          <p className={styles.title}>{message}</p>
+          <div className={styles.buttons}>
+            <button className={styles.saveButton} onClick={onConfirm}>Sim</button>
+            <button className={styles.cancelButton} onClick={onCancel}>Não</button>
+          </div>
+        </form>
       </div>
     );
   }
