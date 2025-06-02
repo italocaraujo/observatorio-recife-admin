@@ -1,9 +1,9 @@
-import { User } from "@/@types/admin/User";
+import { UserItem } from "@/@types/admin/User";
 import styles from "@/app/styles/users/UserTable.module.css";
 
 interface Props {
-  users: User[];
-  onEdit: (user: User) => void;
+  users: UserItem[];
+  onEdit: (user: UserItem) => void;
   onDelete: (id: number | undefined) => void;
 }
 
@@ -23,17 +23,17 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
             <thead>
               <tr>
                 <th>Nome</th>
+                <th>User</th>
                 <th>Email</th>
                 <th>Função</th>
                 <th>Status</th>
-                <th>Último Login</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody className={styles.tableBody}>
               {users.length === 0 ? (
-                <tr>
-                  <td colSpan={4} className={styles.noData}>
+                <tr className={styles.rowNoData}>
+                  <td colSpan={6} className={styles.noData}>
                     Nenhum usuário encontrado.
                   </td>
                 </tr>
@@ -41,6 +41,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                 users.map((user, index) => (
                   <tr key={user.id} className={`${styles.row} ${index === users.length - 1 ? styles.lastRow : ''}`}>
                     <td>{user.name}</td>
+                    <td>{user.user}</td>
                     <td>{user.email}</td>
                     <td>
                       <div
@@ -58,11 +59,10 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                       </div>
                     </td>
                     <td>
-                      <div className={`${styles.tag} ${user.status === 'Ativo' ? styles.active : styles.inactive}`}>
-                        {user.status}
+                      <div className={`${styles.tag} ${user.status ? styles.active : styles.inactive}`}>
+                        {user.status ? 'Ativo' : 'Inativo'}
                       </div>
                     </td>
-                    <td>{user.lastLogin}</td>
                     <td className={styles.actions}>
                       <button onClick={() => onEdit(user)} className={styles.editButton}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"></path></svg>

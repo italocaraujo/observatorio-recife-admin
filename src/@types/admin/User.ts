@@ -1,8 +1,13 @@
-export interface User {
-    id?: number; 
-    name: string;
-    email: string;
-    function: string;
-    status: string;
-    lastLogin: string;
+export interface UserItem {
+  id: number;
+  name: string;
+  user: string;
+  email: string;
+  function: string;
+  permissions: string[];
+  password: string;
+  status: boolean;
 }
+
+export type UserCreate = Omit<UserItem, 'id' | 'status'>;
+export type UserEdit = Pick<UserItem, 'id' | 'status'> & UserCreate;

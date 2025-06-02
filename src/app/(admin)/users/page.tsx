@@ -1,47 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@/app/styles/users/page.module.css";
 import additionalStyles from "@/app/styles/layout/LayoutPage.module.css";
 import UserTable from "@/components/users/UserTable";
 import UserFormModal from "@/components/users/UserFormModal";
 import ConfirmDeleteModal from "@/components/users/ConfirmDeleteModal";
-import { User } from "@/@types/admin/User";
+import { UserItem } from "@/@types/admin/User";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { sidebarData } from "@/components/layout/SidebarData";
+import { fetchUsers } from "@/@api/http/users/usersActions";
 
 interface Props {
-  user: User | null;
+  user: UserItem | null;
   onClose: () => void;
-  onSave: (user: User) => void;
+  onSave: (user: UserItem) => void;
 }
 
-export default function Users() {
-  const [users, setUsers] = useState<User[]>([
-    {
-      id: 1,
-      name: "Rodrigo Andrade",
-      email: "rodrigo.andrade@recife.pe.gov.br",
-      function: "Administrador",
-      status: "Ativo",
-      lastLogin: "2024-01-15 14:30",
-    },
-    {
-      id: 2,
-      name: "Vitoria Silva",
-      email: "vitoria.silva@recife.pe.gov.br",
-      function: "Editor",
-      status: "Inativo",
-      lastLogin: "2024-01-15 14:30",
-    },
-  ]);
 
+export default function Users() {
+  const [users, setUsers] = useState<UserItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userToEdit, setUserToEdit] = useState<User | null>(null);
+  const [userToEdit, setUserToEdit] = useState<UserItem | null>(null);
   const [userToDelete, setUserToDelete] = useState<number | null>(null);
   const { isOpen, toggleSidebar } = useSidebar();
+  const [forceRefresh, setForceRefresh] = useState<number>(0);
 
-  const handleSaveUser = (user: User) => {
+  useEffect(() => {
+    fetchUsers(setUsers, setLoading, setError);
+  }, [forceRefresh]);
+
+  const handleSaveUser = (user: UserItem) => {
     if (user.id) {
       // Editando
       setUsers((prev) =>

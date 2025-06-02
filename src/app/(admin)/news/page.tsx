@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { NewsItem, fetchNews, handleCreateNews, handleDeleteNews, handleSave } from "@/@api/http/news/newsActions";
+import { NewsItem } from "@/@types/admin/News";
+import { fetchNews, handleCreateNews, handleDeleteNews, handleSave } from "@/@api/http/news/newsActions";
 import CreateNews from "@/components/news/CreateNews";
 import NewsList from "@/components/news/NewsList";
 import EditNews from "@/components/news/EditNews";

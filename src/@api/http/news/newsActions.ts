@@ -1,11 +1,4 @@
-export interface NewsItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-  link: string;
-}
+import { NewsItem } from "@/@types/admin/News";
 
 function setError(_arg0: string) {
   throw new Error("Function not implemented.");

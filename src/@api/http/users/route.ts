@@ -25,12 +25,12 @@ async function fetchData<T>(endpoint: string): Promise<T> {
 }
 
 export async function GET() {
-  const endpoint = "/news/newsData"; // Defina o endpoint correto
+  const endpoint = "/users/usersData"; 
   try {
-    const newsData = await fetchData(endpoint);
-    return NextResponse.json(newsData); // Retorna as notícias como resposta JSON
+    const usersData = await fetchData(endpoint);
+    return NextResponse.json(usersData);
   } catch (error) {
-    console.error("Erro ao buscar notícias:", error);
+    console.error("Erro ao buscar usuários:", error);
     return NextResponse.json({ message: 'Erro ao buscar dados da API' }, { status: 500 });
   }
 }
