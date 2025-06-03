@@ -1,9 +1,5 @@
 import { UserItem } from "@/@types/admin/User"
 
-function setError(_arg0: string) {
-  throw new Error("Function not implemented.");
-}
-
 export const fetchUsers = async (setUsersData: React.Dispatch<React.SetStateAction<UserItem[]>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>, setError: React.Dispatch<React.SetStateAction<string | null>>) => {
   setLoading(true);
   setError(null);
@@ -19,7 +15,7 @@ export const fetchUsers = async (setUsersData: React.Dispatch<React.SetStateActi
     });
 
     if (!response.ok) {
-      throw new Error(`Erro ao carregar notícias. Status: ${response.status}`);
+      throw new Error(`Erro ao carregar usuários. Status: ${response.status}`);
     }
 
     const data = await response.json();
@@ -30,9 +26,70 @@ export const fetchUsers = async (setUsersData: React.Dispatch<React.SetStateActi
 
     setUsersData(data);
   } catch (err) {
-    setError("Erro ao buscar notícias");
-    console.error("Erro ao buscar notícias", err);
+    setError("Erro ao buscar usuários");
+    console.error("Erro ao buscar usuários", err);
   } finally {
     setLoading(false);
+  }
+};
+
+export const createUser = async (
+  userData: Omit<UserItem, "id" | "status">,
+  setError: React.Dispatch<React.SetStateAction<string | null>>,
+  setForceRefresh: React.Dispatch<React.SetStateAction<number>>
+): Promise<UserItem | null> => {
+  setError(null);
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Erro ao criar usuário. Status: ${response.status}`);
+    }
+
+    setForceRefresh(prev => prev + 1);
+
+    const createdUser: UserItem = await response.json();
+    return createdUser;
+  } catch (error: any) {
+    setError(error.message || "Erro ao criar usuário");
+    console.error("Erro ao criar usuário", error);
+    return null;
+  }
+};
+
+export const deleteUser = async (
+  id: number,
+  setUsersData: React.Dispatch<React.SetStateAction<UserItem[]>>,
+  setError: React.Dispatch<React.SetStateAction<string | null>>,
+  setForceRefresh: React.Dispatch<React.SetStateAction<number>>
+) => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/usersData/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao excluir usuário');
+    }
+
+    setUsersData(prev => prev.filter(users => users.id !== id));
+    setForceRefresh(prev => prev + 1);
+    return true;
+  } catch (err) {
+    console.error('Erro ao excluir usuário:', err);
+    return false;
   }
 };

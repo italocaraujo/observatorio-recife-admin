@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { UserItem } from "@/@types/admin/User";
 import styles from "@/app/styles/users/UserFormModal.module.css";
 import SelectFunction from "./SelectFunction";
+import { createUser, deleteUser } from '@/@api/http/users/usersActions';
 
 interface Props {
   user: UserItem | null;
@@ -18,6 +19,8 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
   : null;
   
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [forceRefresh, setForceRefresh] = useState(0);
   const [formData, setFormData] = useState<UserItem>(
     userWithDefaults ?? {
     name: "",
@@ -70,10 +73,29 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+
+    try {
+      const userToSend = {
+        name: formData.name,
+        user: formData.user, 
+        email: formData.email,
+        function: formData.function,
+        password: formData.password,
+        permissions: formData.permissions,
+        status: formData.status,
+        id: formData.id, 
+      };
+
+      const responseUser = await createUser(userToSend, setError, setForceRefresh);
+
+      if (responseUser) {
+        onSave(responseUser);
+      }
+    } catch (error) {
+      alert("Erro ao salvar usuário: " + (error as Error).message);
+    }
   };
 
   return (
@@ -111,6 +133,19 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
               required
             />
           </div>
+
+          {isEditing && (
+            <div className={styles.inputContainer}>
+              <label className={styles.label}>Nome de Usuário</label>
+              <input
+                className={styles.input}
+                type="text"
+                name="user"
+                value={formData.user}
+                readOnly
+              />
+            </div>
+          )}
 
           <div className={styles.inputContainer}>
             <label className={styles.label}>Email</label>
