@@ -197,3 +197,10 @@ table {
   border-collapse: collapse;
 }
 
+select {
+  font-family: 'Inter', sans-serif;
+}
+
+select option {
+  font-family: 'Inter', sans-serif;
+}

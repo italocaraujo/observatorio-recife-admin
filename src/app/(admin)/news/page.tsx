@@ -45,40 +45,20 @@ export default function News() {
         </div>
 
         <section className={styles.contentSectionNews}>
-          <div className={styles.tabButtons}>
-            <div className={styles.buttonsTabContent}>
-              <button 
-                onClick={() => handleTabChange('create')}
-                className={activeTab === 'create' ? styles.activeTab : styles.tabButton}
-              >
-                Criar Notícia
-              </button>
-              <button 
-                onClick={() => handleTabChange('view')}
-                className={activeTab === 'view' ? styles.activeTab : styles.tabButton}
-              >
-                Visualizar Notícias
-              </button>
-            </div>
-          </div>
-
           {successMessage && (
             <div className={styles.successMessage}>
               {successMessage}
             </div>
           )}
-
-          {activeTab === 'create' ? (
             <CreateNews 
               handleCreateNews={(formData) => handleCreateNews(formData, setSuccessMessage, setForceRefresh)} 
               onSuccess={() => {}}/>
-          ) : (
+
             <NewsList 
               newsData={newsData} 
               onDelete={(id) => handleDeleteNews(id, newsData, setNewsData, setForceRefresh)}
               onEdit={(news) => setEditingNews(news)} 
             />
-          )}
         </section>
       </div>
       {editingNews && (

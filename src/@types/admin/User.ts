@@ -3,7 +3,7 @@ export interface UserItem {
   name: string;
   user: string;
   email: string;
-  function: string;
+  role: string;
   permissions: string[];
   password: string;
   status: boolean;

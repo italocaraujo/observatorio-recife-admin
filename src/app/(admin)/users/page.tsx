@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "@/app/styles/users/page.module.css";
 import additionalStyles from "@/app/styles/layout/LayoutPage.module.css";
 import UserTable from "@/components/users/UserTable";
 import UserFormModal from "@/components/users/UserFormModal";
-import { UserItem } from "@/@types/admin/User";
+import { UserCreate, UserItem } from "@/@types/admin/User";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { sidebarData } from "@/components/layout/SidebarData";
-import { fetchUsers, deleteUser } from "@/@api/http/users/usersActions";
+import { fetchUsers, deleteUser, editUser, createUser } from "@/@api/http/users/usersActions";
+import UserFilter from "@/components/users/UserFilter";
+import { UserFilterType } from "@/@types/admin/UserFilter";
 
 export default function Users() {
   const [users, setUsers] = useState<UserItem[]>([]);
@@ -17,46 +19,80 @@ export default function Users() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState<UserItem | null>(null);
   const { isOpen, toggleSidebar } = useSidebar();
-
-  // Para forçar refresh (pode ser usado se necessário)
   const [forceRefresh, setForceRefresh] = useState<number>(0);
+  const [filter, setFilter] = useState<UserFilterType>({});
+
 
   useEffect(() => {
     fetchUsers(setUsers, setLoading, setError);
   }, [forceRefresh]);
 
-  // Abre modal para editar usuário
   function handleEditUser(user: UserItem) {
     setUserToEdit(user);
     setIsModalOpen(true);
   }
 
-  // Fecha o modal
   function closeModal() {
     setIsModalOpen(false);
     setUserToEdit(null);
   }
 
-  // Atualiza a lista local após criar ou editar usuário
-  const handleSaveUser = (user: UserItem) => {
-    if (user.id) {
-      // Editando usuário existente
-      setUsers(prev =>
-        prev.map(u => (u.id === user.id ? user : u))
+  const filteredUsers = useMemo(() => {
+  return users.filter((user) => {
+    if (filter.name && !user.name.toLowerCase().includes(filter.name.toLowerCase())) {
+      return false;
+    }
+
+    if (filter.email && !user.email.toLowerCase().includes(filter.email.toLowerCase())) {
+      return false;
+    }
+
+    if (filter.role && !user.role.toLowerCase().includes(filter.role.toLowerCase())) {
+      return false;
+    }
+
+    if (filter.status !== undefined && filter.status !== null && user.status !== filter.status) {
+      return false;
+    }
+
+    return true;
+  });
+}, [users, filter]);
+
+const handleSaveUser = async (userData: Omit<UserItem, "id"> & { id?: number }) => {
+  try {
+    if (!userData.name || !userData.email || !userData.role) {
+      setError("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    let success: boolean = false;
+
+    if ('id' in userData && typeof userData.id === 'number' && !isNaN(userData.id) && userData.id > 0) {
+      success = await editUser(
+        userData.id,
+        userData,
+        setUsers,
+        setError,
+        setForceRefresh
       );
     } else {
-      // Criando novo usuário (id gerado no backend, mas aqui temporariamente geramos com Date.now)
-      const newUser = { ...user, id: Date.now() };
-      setUsers(prev => [...prev, newUser]);
+      const createdUser = await createUser(userData as UserCreate, setError, setForceRefresh);
+      success = createdUser !== null;
     }
-    closeModal();
-  };
 
-  // Deleta usuário, atualiza lista local e pode forçar refresh se quiser
+    if (success) {
+      closeModal();
+    }
+  } catch (err) {
+    console.error('Erro ao salvar usuário:', err);
+    setError(err instanceof Error ? err.message : 'Erro ao salvar usuário');
+  }
+};
+
   const handleDeleteUser = async (id: number): Promise<boolean> => {
     const success = await deleteUser(id, setUsers, setError, setForceRefresh);
     if (success) {
-      // Atualiza localmente a lista removendo o usuário excluído
       setUsers(prev => prev.filter(u => u.id !== id));
     }
     return success;
@@ -117,15 +153,15 @@ export default function Users() {
 
         <section className={styles.contentSectionUsers}>
           <UserTable
-            users={users}
+            users={filteredUsers}
             onEdit={handleEditUser}
             onDelete={handleDeleteUser}
-            onClose={closeModal}
           />
 
           {isModalOpen && (
             <UserFormModal
-              user={userToEdit}
+              isOpen={isModalOpen}
+              user={userToEdit}    
               onClose={closeModal}
               onSave={handleSaveUser}
               pages={sidebarData.map((item) => item.label)}

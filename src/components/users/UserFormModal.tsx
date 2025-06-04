@@ -5,6 +5,7 @@ import SelectFunction from "./SelectFunction";
 import { createUser, deleteUser } from '@/@api/http/users/usersActions';
 
 interface Props {
+  isOpen: boolean;
   user: UserItem | null;
   onClose: () => void;
   onSave: (user: UserItem) => void;
@@ -28,7 +29,7 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
     permissions: [],
     user: "",
     password: "",
-    function: "",
+    role: "",
     status: true,
     id: 0,
   }
@@ -42,7 +43,7 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
   };
 
   const handleFunctionChange = (selectedFunction: string) => {
-    setFormData(prev => ({ ...prev, function: selectedFunction }));
+    setFormData(prev => ({ ...prev, role: selectedFunction }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,23 +77,24 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.name || !formData.email || !formData.role) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    const userToSend = {
+      name: formData.name,
+      user: formData.user, 
+      email: formData.email,
+      role: formData.role,
+      password: formData.password,
+      permissions: formData.permissions,
+      status: formData.status,
+      id: formData.id, 
+    };
+
     try {
-      const userToSend = {
-        name: formData.name,
-        user: formData.user, 
-        email: formData.email,
-        function: formData.function,
-        password: formData.password,
-        permissions: formData.permissions,
-        status: formData.status,
-        id: formData.id, 
-      };
-
-      const responseUser = await createUser(userToSend, setError, setForceRefresh);
-
-      if (responseUser) {
-        onSave(responseUser);
-      }
+      onSave(userToSend); // Passa para o componente pai decidir se é criar ou editar
     } catch (error) {
       alert("Erro ao salvar usuário: " + (error as Error).message);
     }
@@ -160,7 +162,7 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
           </div>
 
           <SelectFunction
-            selectedFunction={formData.function}
+            selectedFunction={formData.role}
             onSelect={handleFunctionChange}
           />
 
