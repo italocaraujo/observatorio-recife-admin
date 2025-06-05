@@ -6,11 +6,10 @@ import additionalStyles from "@/app/styles/layout/LayoutPage.module.css";
 import UserTable from "@/components/users/UserTable";
 import UserFormModal from "@/components/users/UserFormModal";
 import { UserCreate, UserItem } from "@/@types/admin/User";
-import { useSidebar } from "@/contexts/SidebarContext";
 import { sidebarData } from "@/components/layout/SidebarData";
 import { fetchUsers, deleteUser, editUser, createUser } from "@/@api/http/users/usersActions";
-import UserFilter from "@/components/users/UserFilter";
 import { UserFilterType } from "@/@types/admin/UserFilter";
+import PageTitle from "@/components/layout/PageTitle";
 
 export default function Users() {
   const [users, setUsers] = useState<UserItem[]>([]);
@@ -18,7 +17,6 @@ export default function Users() {
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState<UserItem | null>(null);
-  const { isOpen, toggleSidebar } = useSidebar();
   const [forceRefresh, setForceRefresh] = useState<number>(0);
   const [filter, setFilter] = useState<UserFilterType>({});
 
@@ -102,33 +100,11 @@ const handleSaveUser = async (userData: Omit<UserItem, "id"> & { id?: number }) 
     <div className={additionalStyles.container}>
       <div className={additionalStyles.contentContainer}>
         <div className={additionalStyles.titleContainer}>
-          <div className={additionalStyles.title}>
-            <button
-              className={additionalStyles.hideSidebar}
-              onClick={toggleSidebar}
-              aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-                <path d="M9 3v18"></path>
-              </svg>
-            </button>
-            <h2>Gestão de Usuários</h2>
-          </div>
+          <PageTitle title="Usuários" />
           <div className={additionalStyles.buttonContent}>
             <button
               onClick={() => setIsModalOpen(true)}
-              className={styles.newUserButton}
+              className={additionalStyles.newButton}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

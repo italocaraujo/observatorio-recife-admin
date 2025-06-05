@@ -8,25 +8,18 @@ import NewsList from "@/components/news/NewsList";
 import EditNews from "@/components/news/EditNews";
 import styles from '@/app/styles/news/page.module.css';
 import additionalStyles from '@/app/styles/layout/LayoutPage.module.css';
-
+import PageTitle from "@/components/layout/PageTitle";
 
 export default function News() {
-  const [activeTab, setActiveTab] = useState<'create' | 'view'>('create');
   const [newsData, setNewsData] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [editingNews, setEditingNews] = useState<NewsItem | null>(null);
   const [forceRefresh, setForceRefresh] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  
-  const handleTabChange = (tab: 'create' | 'view') => {
-    setActiveTab(tab);
-    if (tab === 'view') {
-      fetchNews(setNewsData, setLoading, setError);
-    }
-  };
-
+  // Fetch news data when the page loads or when forceRefresh changes
   useEffect(() => {
     fetchNews(setNewsData, setLoading, setError);
   }, [forceRefresh]);
@@ -39,8 +32,18 @@ export default function News() {
     <div className={additionalStyles.container}>
       <div className={additionalStyles.contentContainer}>
         <div className={additionalStyles.titleContainer}>
-          <div className={additionalStyles.title}>
-            <h1>Notícias</h1>
+          <PageTitle title="Notícias" />
+          <div className={additionalStyles.buttonContent}>
+            <button
+              onClick={() => setIsModalOpen(true)}  // Open modal for creating news
+              className={additionalStyles.newButton}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="M12 5v14"></path>
+              </svg>
+              Nova Notícia
+            </button>
           </div>
         </div>
 
@@ -50,17 +53,30 @@ export default function News() {
               {successMessage}
             </div>
           )}
-            <CreateNews 
-              handleCreateNews={(formData) => handleCreateNews(formData, setSuccessMessage, setForceRefresh)} 
-              onSuccess={() => {}}/>
+          
+          
+            {isModalOpen && (
+              <div className={styles.modalContainer}>
+                <CreateNews 
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  handleCreateNews={(formData) => handleCreateNews(formData, setSuccessMessage, setForceRefresh)} 
+                  onSuccess={() => setIsModalOpen(false)}
+                />
+              </div>
+            )}
+          
 
-            <NewsList 
-              newsData={newsData} 
-              onDelete={(id) => handleDeleteNews(id, newsData, setNewsData, setForceRefresh)}
-              onEdit={(news) => setEditingNews(news)} 
-            />
+          {/* NewsList component to display list of news */}
+          <NewsList 
+            newsData={newsData} 
+            onDelete={(id) => handleDeleteNews(id, newsData, setNewsData, setForceRefresh)}
+            onEdit={(news) => setEditingNews(news)} 
+          />
         </section>
       </div>
+
+      {/* EditNews component for editing news */}
       {editingNews && (
         <EditNews
           newsToEdit={editingNews!}

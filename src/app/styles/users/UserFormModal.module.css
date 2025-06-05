@@ -131,9 +131,9 @@
 }
 
 .dropdownList {
-  position: absolute; /* Posiciona relativo ao .inputContainer */
-  top: 110%;          /* Começa logo abaixo do botão */
-  right: 0;           /* Largura igual ao container */
+  position: absolute;
+  top: 110%;          
+  right: 0;           
   z-index: 9999;   
   list-style: none;
   border-width: 1px;

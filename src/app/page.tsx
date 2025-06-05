@@ -6,7 +6,7 @@ import styles from '@/app/styles/login/login.module.css';
 export default function Login() {
   const router = useRouter();
 
-  const handleLogin = async (username: string, password: string, rememberMe: boolean) => {
+  const handleLogin = async (username: string, password: string) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, {
         method: 'POST',
@@ -34,9 +34,6 @@ export default function Login() {
 
   return (
     <div className={styles.loginContainer}>
-      <div className={styles.logoContainer}>
-        <img src="/images/logos/observatorio_logo.png" alt="Observatório Logo" className={styles.logoObsLogin} />
-      </div>
       <LoginForm onSubmit={handleLogin} />
     </div>
   );

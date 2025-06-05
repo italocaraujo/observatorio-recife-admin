@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { UserItem } from "@/@types/admin/User";
 import styles from "@/app/styles/users/UserFormModal.module.css";
 import SelectFunction from "./SelectFunction";
-import { createUser, deleteUser } from '@/@api/http/users/usersActions';
 
 interface Props {
   isOpen: boolean;
@@ -20,8 +19,6 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
   : null;
   
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [forceRefresh, setForceRefresh] = useState(0);
   const [formData, setFormData] = useState<UserItem>(
     userWithDefaults ?? {
     name: "",
@@ -94,7 +91,7 @@ export default function UserFormModal({ user, onClose, onSave, pages }: Props) {
     };
 
     try {
-      onSave(userToSend); // Passa para o componente pai decidir se é criar ou editar
+      onSave(userToSend);
     } catch (error) {
       alert("Erro ao salvar usuário: " + (error as Error).message);
     }
