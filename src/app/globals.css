@@ -11,9 +11,12 @@
   --light-gray: #e5e7eb;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
+  --snow: #f9fafb;
 
   --blue-hover: #1d4ed8;
   --blue-active: #1d4ed8;
+
+  
 
   --item-sidebar-hover: #dfe3e7;
   --item-sidebar-activated: #c2e7ff;
@@ -40,7 +43,7 @@
   --card-news-title: #1a1a1a;
   --card-news-date: #666;
   --card-news-description: #333;
-  --card-news-actions: #f9fafb;
+  --card-news-actions: ;
   --card-news-border: #e5e7eb;
   --edit-button-background: #e0f2fe;
   --edit-button-text: #0369a1;
@@ -200,5 +203,9 @@ select {
 }
 
 select option {
+  font-family: 'Inter', sans-serif;
+}
+
+textarea {
   font-family: 'Inter', sans-serif;
 }

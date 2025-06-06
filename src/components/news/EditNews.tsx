@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { handleSave } from '@/@api/http/news/newsActions';
 import styles from '@/app/styles/news/EditNews.module.css';
-import additionalStyles from '@/app/styles/news/CreateNews.module.css';
+import additionalStyles from "@/app/styles/layout/LayoutPage.module.css";
+
 
 interface NewsItem {
   id: number;
@@ -25,6 +26,7 @@ interface EditNewsProps {
 const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onCancel, isOpen, setError, setSuccessMessage, setForceRefresh, }) => {
   const [formData, setFormData] = useState<NewsItem>(newsToEdit);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
     setFormData(newsToEdit);
@@ -74,68 +76,101 @@ const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onCancel, isOpen, setEr
           <div className={styles.modalContainer}>
             <div className={styles.modalContent}>
               <div className={styles.modalHeader}>
-                <h1 className={styles.titleCreateNews}>Editar Notícia</h1>
-                <button className={styles.closeButtonX} onClick={onCancel}>
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"/>
+                <div className={styles.titleContainer}>
+                  <h2 className={styles.title}>Editar Notícia</h2>
+                  <p className={styles.subtitle}>Atualize as informações da notícia.</p>
+                </div>
+
+                <button 
+                  className={styles.buttonClose} 
+                  onClick={onCancel}
+                  aria-label="Close menu"
+                >
+                  <svg viewBox="0 0 512 512" version="1.1">
+                    <g id="Page-1" stroke="none" strokeWidth="1" fillRule="evenodd">
+                      <g id="add" transform="translate(134.248389, 134.248389)">
+                        <path d="M213.333333,2.84217094e-14 L243.503223,30.1698893 L151.921,121.751 L243.503223,213.333333 L213.333333,243.503223 L121.751,151.921 L30.1698893,243.503223 L2.84217094e-14,213.333333 L91.582,121.751 L2.84217094e-14,30.1698893 L30.1698893,2.84217094e-14 L121.751,91.582 L213.333333,2.84217094e-14 Z" id="Combined-Shape"></path>
+                      </g>
+                    </g>
                   </svg>
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className={additionalStyles.formCreateNews}>
-                <div className={additionalStyles.inputContainer}>
+              <form onSubmit={handleSubmit} className={styles.formEditNews}>
+                <div className={styles.inputContainer}>
                   <label htmlFor="title">Título</label>
                   <input
                     type="text"
                     id="title"
                     value={formData.title}
                     onChange={handleChange}
+                    className={additionalStyles.input}
                   />
                 </div>
 
-                <div className={additionalStyles.inputContainer}>
+                <div className={styles.inputContainer}>
                   <label htmlFor="description">Descrição</label>
                   <textarea
                     id="description"
                     value={formData.description}
                     onChange={handleChange}
+                    className={additionalStyles.input}
                   />
                 </div>
 
-                <div className={additionalStyles.inputContainer}>
+                <div className={styles.inputContainer}>
                   <label htmlFor="date">Data</label>
                   <input
                     type="date"
                     id="date"
                     value={formData.date}
                     onChange={handleChange}
+                    className={additionalStyles.input}
                   />
                 </div>
 
-                <div className={additionalStyles.inputContainer}>
+                <div className={styles.inputContainer}>
                   <label htmlFor="link">Link</label>
                   <input
                     type="url"
                     id="link"
                     value={formData.link}
                     onChange={handleChange}
+                    className={additionalStyles.input}
                   />
                 </div>
 
-                <div className={additionalStyles.inputImageContainer}>
-                  <label htmlFor="image">Alterar Imagem</label>
-                  <input
-                    type="file"
-                    id="image"
-                    onChange={handleImageChange}
-                  />
+                <div className={styles.inputImageContainer}>
+                  <label htmlFor="image" className={styles.labelImage}>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 984.6 984.6">
+                      <g>
+                        <path d="M984.6,580.149c0-46.899-38.1-85-85-85c-46.899,0-85,38.101-85,85V812.75c0,0.6-0.5,1.1-1.1,1.1H171.1   c-0.6,0-1.1-0.5-1.1-1.1V580.149c0-46.899-38.1-85-85-85c-46.9,0-85,38.101-85,85V812.75c0.1,94.3,76.8,171.1,171.1,171.1h642.4   c94.3,0,171.1-76.7,171.1-171.1V580.149L984.6,580.149z"/>
+                        <path d="M729.7,25.65c-33.2-33.2-87-33.2-120.2,0c-33.2,33.2-33.2,87,0,120.2l46.2,46.2H547.5c-39.9,0-78.601,7.9-115.3,23.4   c-35.2,15-66.801,36.3-94,63.5c-27.2,27.2-48.5,58.8-63.5,94c-15.5,36.6-23.4,75.4-23.4,115.2v107.1c0,46.899,38.1,85,85,85   c46.9,0,85-38.101,85-85v-107c0-33.5,13.2-65.101,37.2-89.101c24-24,55.6-37.2,89.1-37.2h106.9l-44.9,44.9   c-33.2,33.2-33.2,87,0,120.2c16.601,16.6,38.4,24.9,60.101,24.9c21.699,0,43.5-8.301,60.1-24.9l190.7-190.7   c33.2-33.2,33.2-87,0-120.2L729.7,25.65z"/>
+                      </g>
+                    </svg>
+                    Alterar Imagem
+                  </label>
+                  <div className={styles.imageUploadWrapper}>
+                    <label className={styles.imageUploadLabel}>
+                      <span>{formData.image || "Nenhum imagem anexada"}</span>
+                    </label>
+                    <input
+                      type="file"
+                      id="image"
+                      onChange={handleImageChange}
+                      required
+                      accept="image/*"
+                      className={styles.imageInput}
+                    />
+                  </div>
                 </div>
 
-                <div className={additionalStyles.formActions}>
-                  <button type="button" onClick={onCancel} className={additionalStyles.resetButton}>
+
+                <div className={additionalStyles.buttonContainer}>
+                  <button type="button" onClick={onCancel} className={additionalStyles.strokeButton}>
                     Cancelar
                   </button>
-                  <button type="submit" className={additionalStyles.submitButton}>
+                  <button type="submit" className={additionalStyles.fillButton}>
                     Salvar Alterações
                   </button>
                 </div>

@@ -1,6 +1,8 @@
 .sidebar {
-  position: absolute; 
+  position: fixed; 
+  top: 0;
   width: 16rem;
+  min-height: 100svh;
   height: 100svh;
   color: var(--foreground);
   background-color: var(--background);
@@ -13,7 +15,6 @@
 }
 
 .sidebarContent {
-  position: fixed; 
   border-right-width: 1px;
   width: 16rem;
   height: 100svh;

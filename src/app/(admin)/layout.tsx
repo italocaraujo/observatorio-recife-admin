@@ -12,7 +12,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <>
       <SidebarProvider>
@@ -20,25 +19,23 @@ export default function RootLayout({
       </SidebarProvider>
     </>
   );
+}
 
-  function LayoutContent({ children }: { children: React.ReactNode }) {
+function LayoutContent({ children }: { children: React.ReactNode }) {
   const { isOpen, toggleSidebar } = useSidebar();
 
   return (
     <>
       <Head>
         <title>Observatório Admin</title>
-        <link rel="favicon" href="/favicon.ico" /> 
+        <link rel="icon" href="/favicon.ico" /> {/* Corrigi a tag de favicon */}
       </Head>
       <div className={styles.mainPageContainer}>
         <Sidebar links={sidebarData} isOpen={isOpen} toggleSidebar={toggleSidebar}/>
-        <main
-        className={isOpen ? styles.contentShifted : styles.content}
-        >
+        <main className={isOpen ? styles.contentShifted : styles.content}>
           {children}
         </main>
       </div>
     </>
   );
-}
 }

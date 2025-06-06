@@ -1,156 +1,160 @@
-/* Adicione ao seu arquivo de estilos */
-
 .newsContainer {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
-  .newsList {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 2rem;
-  }
-  
-  .newsItem {
-    background: var(--card-list-news);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .newsContent {
-    padding: 1.5rem;
-    flex-grow: 1;
-  }
-  
-  .newsTitle {
-    margin: 0 0 0.5rem 0;
-    color: var(--card-news-title);
-    font-size: 1.25rem;
-  }
-  
-  .newsDate {
-    color: var(--card-news-date);
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
-  }
-  
-  .newsDescription {
-    color: var(--card-news-description);
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
-  
-  .newsImageContainer {
-    margin: 1rem 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .newsImage {
-    max-width: 500px;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  .newsLink {
-    display: inline-block;
-    color: #3b82f6;
-    text-decoration: none;
-    margin-top: 1rem;
-  }
-  
-  .newsLink:hover {
-    text-decoration: underline;
-  }
-  
-  .newsActions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    padding: 1rem;
-    background: var(--card-news-actions);
-    border-top: 1px solid var(--card-news-border);
-  }
-  
-  .editButton, .deleteButton {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s;
-  }
-  
-  .editButton {
-    background-color: var(--edit-button-background);
-    color: var(--edit-button-text);
-  }
-  
-  .editButton:hover {
-    background-color: var(--edit-button-hover);
-  }
-  
-  .deleteButton {
-    background-color: var(--delete-button-background);
-    color: var(--delete-button-text);
-  }
-  
-  .deleteButton:hover {
-    background-color: var(--delete-button-hover);
-  }
-  
-  .errorMessage {
-    color: #b91c1c;
-    background-color: #fee2e2;
-    padding: 1rem;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  .emptyMessage {
-    color: #666;
-    text-align: center;
-    padding: 2rem;
-    font-style: italic;
-  }
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 
-  .searchContainer {
-    background-color: var(--input-search-background);
-    max-width: 720px;
-    border-radius: 24px;
-    display: flex;
-    margin: 12px 0;
-    position: relative;
-    white-space: nowrap;
-  }
+}
+  
+.newsList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 2rem;
+}
 
-  .searchIcon {
-    fill: var(--input-search-icon);
-    margin: 12px 16px;
-    display: flex;
-    align-items: center;
-  }
+.newsItem {
+  background: var(--white);
+  border-radius: calc(var(--radius) + 0.5rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
-  .searchInput {
-    background-color: transparent;
-    border: none;
-    flex-grow: 1;
-    line-height: 1.5rem;
-    font-size: 1rem;
-  }
+.newsContent {
+  padding: 1.5rem;
+  flex-grow: 1;
+  border-width: 1px;
+  border-bottom: 0;
+}
 
-  .searchInput::placeholder {
-    color: var(--input-search-icon);
-    font-size: 14px;
-  }
+.newsTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
 
-  .searchInput:focus {
-    outline: none;
-  }
+.newsDate {
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.newsDescription {
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.newsImageContainer {
+  margin: 1rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.newsImage {
+  max-width: 500px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.newsLink {
+  display: inline-block;
+  color: var(--blue);
+  text-decoration: none;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.newsLink:hover {
+  text-decoration: underline;
+}
+
+.newsActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--snow);
+  border-width: 1px;
+}
+
+.editButton,
+.deleteButton {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  gap: 0.5rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.25rem;
+  border-radius: var(--radius);
+  border: solid 1px var(--light-gray);
+  background-color: #fff;
+  transition: all 0.4s ease;
+}
+
+.editButton svg,
+.deleteButton svg {
+  width: 1rem;
+  height: 1rem;
+  transition: all 0.35s ease;
+}
+
+.editButton:hover {
+  background-color: #d6e3ff;
+}
+
+.deleteButton:hover {
+  background-color: #fac5c5;
+} 
+
+.errorMessage {
+  color: #b91c1c;
+  background-color: #fee2e2;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.emptyMessage {
+  color: #666;
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.searchContainer {
+  background-color: var(--snow);
+  border-radius: 24px;
+  display: flex;
+  margin: 1rem 0 1.5rem 0;
+  position: relative;
+  white-space: nowrap;
+  border-width: 1px;
+}
+
+.searchIcon {
+  fill: var(--muted-foreground);
+  margin: 12px 16px;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  background-color: transparent;
+  border: none;
+  flex-grow: 1;
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+
+.searchInput::placeholder {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+.searchInput:focus {
+  outline: none;
+}

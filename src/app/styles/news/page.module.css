@@ -1,25 +1,52 @@
- .contentSectionNews {
-    padding: 24px 16px 0 16px;
-    min-height: auto;
-    overflow-y: auto;
-    position: relative;
-  }
+.contentSectionNews {
+  min-height: auto;
+  overflow-y: auto;
+}
 
-  .createNewsForm {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+.newsCardsContainer {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 
-  .newsList {
-    margin-top: 20px;
-  }
+.newsList {
+  border-width: 1px;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+}
+
+.newsListHeader {
+  padding: 1.5rem;
+}
+
+.newsListHeader > *:not(:last-child) {
+  margin-bottom: 0.375rem;
+}
+
+.newsListHeader h3 {
+  letter-spacing: -0.025em;
+  line-height: 1;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.newsListHeader p {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.newsListContainer {
+  padding: 1.5rem;
+  padding-top: 0;
+}
   
-  .newsItem {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 10px;
-  }
+.newsItem {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
   
   .newsItem h3 {
     font-size: 1.5rem;
@@ -99,19 +126,6 @@
     to {
       opacity: 0;
     }
-  }
-  
-  .activeTab {
-    background-color: var(--tab-color);
-    font-size: 1rem;
-    color: var(--tab-text-color);
-    padding: 2px 8px;
-    border: 1px solid var(--tab-color);
-    border-radius: 7px;
-  }
-
-  .activeTab:hover {
-    background-color: var(--tab-color);
   }
 
 .modalContainer {

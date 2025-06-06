@@ -157,7 +157,7 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess, on
           </div>
 
           <div className={styles.inputImageContainer}>
-            <label htmlFor="image">
+            <label htmlFor="image" className={styles.labelImage}>
               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 984.6 984.6">
                 <g>
                   <path d="M984.6,580.149c0-46.899-38.1-85-85-85c-46.899,0-85,38.101-85,85V812.75c0,0.6-0.5,1.1-1.1,1.1H171.1   c-0.6,0-1.1-0.5-1.1-1.1V580.149c0-46.899-38.1-85-85-85c-46.9,0-85,38.101-85,85V812.75c0.1,94.3,76.8,171.1,171.1,171.1h642.4   c94.3,0,171.1-76.7,171.1-171.1V580.149L984.6,580.149z"/>
@@ -213,11 +213,11 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess, on
           </div>
         </div>
 
-        <div className={styles.formActions}>
+        <div className={additionalStyles.buttonContainer}>
           <button 
             type="button" 
             onClick={resetForm}
-            className={styles.resetButton}
+            className={additionalStyles.strokeButton}
             disabled={loading}
           >
             Limpar
@@ -225,7 +225,7 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess, on
           <button 
             type="submit" 
             disabled={loading}
-            className={styles.submitButton}
+            className={additionalStyles.fillButton}
           >
             {loading ? (
               <>

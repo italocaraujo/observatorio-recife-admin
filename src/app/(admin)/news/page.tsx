@@ -19,7 +19,6 @@ export default function News() {
   const [forceRefresh, setForceRefresh] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Fetch news data when the page loads or when forceRefresh changes
   useEffect(() => {
     fetchNews(setNewsData, setLoading, setError);
   }, [forceRefresh]);
@@ -28,14 +27,33 @@ export default function News() {
     return <div className={styles.loading}>Carregando...</div>;
   }
 
+  const getYearFromDate = (dateString: string) => {
+    if (dateString === "--") return null; // Tratando dados inválidos
+
+    // Exemplo de data: "19 de Janeiro de 2025"
+    const dateParts = dateString.split(" ");
+    const year = dateParts[2]; // O ano está na posição 2 do array após o split (ex: "2025")
+    return parseInt(year, 10); // Retorna o ano como número inteiro
+  };
+
+  // Obtendo o ano atual
+  const currentYear = new Date().getFullYear();
+
+  // Filtrando as notícias do ano atual
+  const newsThisYear = newsData.filter(news => {
+    const newsYear = getYearFromDate(news.date);
+    return newsYear === currentYear;
+  });
+
+
   return (
     <div className={additionalStyles.container}>
       <div className={additionalStyles.contentContainer}>
         <div className={additionalStyles.titleContainer}>
-          <PageTitle title="Notícias" />
+          <PageTitle title="Gestão de Notícias" />
           <div className={additionalStyles.buttonContent}>
             <button
-              onClick={() => setIsModalOpen(true)}  // Open modal for creating news
+              onClick={() => setIsModalOpen(true)} 
               className={additionalStyles.newButton}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -45,7 +63,7 @@ export default function News() {
               Nova Notícia
             </button>
           </div>
-        </div>
+        </div> 
 
         <section className={styles.contentSectionNews}>
           {successMessage && (
@@ -53,30 +71,45 @@ export default function News() {
               {successMessage}
             </div>
           )}
-          
-          
-            {isModalOpen && (
-              <div className={styles.modalContainer}>
-                <CreateNews 
-                  isOpen={isModalOpen}
-                  onClose={() => setIsModalOpen(false)}
-                  handleCreateNews={(formData) => handleCreateNews(formData, setSuccessMessage, setForceRefresh)} 
-                  onSuccess={() => setIsModalOpen(false)}
-                />
-              </div>
-            )}
-          
+          {isModalOpen && (
+            <div className={styles.modalContainer}>
+              <CreateNews 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                handleCreateNews={(formData) => handleCreateNews(formData, setSuccessMessage, setForceRefresh)} 
+                onSuccess={() => setIsModalOpen(false)}
+              />
+            </div>
+          )}
 
-          {/* NewsList component to display list of news */}
-          <NewsList 
-            newsData={newsData} 
-            onDelete={(id) => handleDeleteNews(id, newsData, setNewsData, setForceRefresh)}
-            onEdit={(news) => setEditingNews(news)} 
-          />
+          <section className={styles.newsCardsContainer}>
+            <div className={styles.newsCard}>
+              <div className={styles.newsCardHeader}>
+                <h3>Total de Notícias</h3>
+                
+              </div>
+              <div className={styles.newsCardContent}>
+                <span>{newsData.length}</span>
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.newsList}>
+            <div className={styles.newsListHeader}>
+              <h3>Notícias</h3>
+              <p>Gerencie todas as notícias do sistema</p>
+            </div>
+            <div className={styles.newsListContainer}>
+              <NewsList 
+                newsData={newsData} 
+                onDelete={(id) => handleDeleteNews(id, newsData, setNewsData, setForceRefresh)}
+                onEdit={(news) => setEditingNews(news)} 
+              />
+            </div>
+          </section>
         </section>
       </div>
 
-      {/* EditNews component for editing news */}
       {editingNews && (
         <EditNews
           newsToEdit={editingNews!}
