@@ -9,6 +9,50 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.newsCard {
+  border-width: 1px;
+  border-radius: var(--radius);
+}
+
+.newsCardHeader {
+  padding: 1.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.newsCardHeader h3 {
+  letter-spacing: -0.025em;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.newsCardHeader svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground);
+}
+
+.iconInactive {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: var(--muted-foreground);
+}
+
+.newsCardContent {
+  padding: 1.5rem;
+    padding-top: 0px;
+}
+
+.newsCardContent p {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
 .newsList {
   border-width: 1px;
   border-radius: var(--radius);
@@ -78,55 +122,58 @@
     background-color: #c82333;
   }
 
-  .successMessage {
-    color: #065f46;
-    background-color: #d1fae5;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: fixed;
-    z-index: 1000;
+.successMessage {
+  position: absolute;
+  bottom: 0;
+  right: 1.5rem;
+  color: #065f46;
+  background-color: #d1fae5;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: fixed;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
+  animation-delay: 0s, 2.5s;
+}
+
+.errorMessage {
+  color: #b91c1c;
+  background-color: #fee2e2;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
+  animation-delay: 0s, 2.5s;
+}
+
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
-    animation-delay: 0s, 2.5s;
   }
-  
-  .errorMessage {
-    color: #b91c1c;
-    background-color: #fee2e2;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
     opacity: 0;
-    animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards;
-    animation-delay: 0s, 2.5s;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
+}
 
 .modalContainer {
   position: fixed;

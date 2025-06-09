@@ -2,16 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { handleSave } from '@/@api/http/news/newsActions';
 import styles from '@/app/styles/news/EditNews.module.css';
 import additionalStyles from "@/app/styles/layout/LayoutPage.module.css";
-
-
-interface NewsItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-  link: string;
-}
+import { NewsItem } from "@/@types/admin/News";
 
 interface EditNewsProps {
   newsToEdit: NewsItem;
@@ -42,6 +33,13 @@ const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onCancel, isOpen, setEr
     if (file) {
       setImageFile(file);
     }
+  };
+
+    const handleStatusChange = (checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      status: checked,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -158,11 +156,24 @@ const EditNews: React.FC<EditNewsProps> = ({ newsToEdit, onCancel, isOpen, setEr
                       type="file"
                       id="image"
                       onChange={handleImageChange}
-                      required
                       accept="image/*"
                       className={styles.imageInput}
                     />
                   </div>
+                </div>
+
+                <div className={styles.inputContainer}>
+                  <label className={styles.label}>
+                    Status
+                  </label>
+                  <label className={styles.toggleSwitch}>
+                    <input
+                      type="checkbox"
+                      checked={formData.status}
+                      onChange={e => handleStatusChange(e.target.checked)}
+                    />
+                    <span className={styles.slider}></span>
+                  </label>
                 </div>
 
 

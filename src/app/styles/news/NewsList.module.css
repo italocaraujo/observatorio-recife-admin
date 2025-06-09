@@ -70,12 +70,40 @@
 }
 
 .newsActions {
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  justify-content: space-between;
   padding: 1rem;
   background: var(--snow);
   border-width: 1px;
+}
+
+.newsActionsButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  color: #f0f8f6;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.active {
+  background-color: #22c55e;
+}
+
+.inactive {
+  background-color: #ef4444;
 }
 
 .editButton,

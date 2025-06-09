@@ -5,4 +5,5 @@ export interface NewsItem {
   image: string;
   date: string;
   link: string;
+  status: boolean;
 }

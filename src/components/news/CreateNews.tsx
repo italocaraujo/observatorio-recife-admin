@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import styles from "@/app/styles/news/CreateNews.module.css";
 import additionalStyles from "@/app/styles/layout/LayoutPage.module.css";
-
-interface NewsItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-  link: string;
-}
+import { NewsItem } from "@/@types/admin/News";
 
 interface CreateNewsProps {
   isOpen: boolean;
@@ -24,7 +16,8 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess, on
     description: "",
     image: "",
     date: "",
-    link: ""
+    link: "",
+    status: true
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -78,7 +71,8 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess, on
           description: '',
           image: '',
           date: '',
-          link: ''
+          link: '',
+          status: true
         });
         setImageFile(null);
 
@@ -102,7 +96,8 @@ const CreateNews: React.FC<CreateNewsProps> = ({ handleCreateNews, onSuccess, on
       description: "",
       image: "",
       date: "",
-      link: ""
+      link: "",
+      status: true
     });
     setImagePreview(null);
   };

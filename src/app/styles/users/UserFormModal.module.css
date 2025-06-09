@@ -303,7 +303,6 @@
   z-index: 1100;
 }
 
-/* Container do toggle */
 .toggleSwitch {
   position: relative;
   width: 50px;
@@ -311,7 +310,6 @@
   display: inline-block;
 }
 
-/* Checkbox escondido */
 .toggleSwitch input[type="checkbox"] {
   opacity: 0;
   width: 0;
@@ -319,7 +317,6 @@
   position: absolute;
 }
 
-/* Slider que aparece */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -329,7 +326,6 @@
   border-radius: 24px;
 }
 
-/* Bolinha do slider */
 .slider::before {
   position: absolute;
   content: "";

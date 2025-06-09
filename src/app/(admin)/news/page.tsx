@@ -27,25 +27,6 @@ export default function News() {
     return <div className={styles.loading}>Carregando...</div>;
   }
 
-  const getYearFromDate = (dateString: string) => {
-    if (dateString === "--") return null; // Tratando dados inválidos
-
-    // Exemplo de data: "19 de Janeiro de 2025"
-    const dateParts = dateString.split(" ");
-    const year = dateParts[2]; // O ano está na posição 2 do array após o split (ex: "2025")
-    return parseInt(year, 10); // Retorna o ano como número inteiro
-  };
-
-  // Obtendo o ano atual
-  const currentYear = new Date().getFullYear();
-
-  // Filtrando as notícias do ano atual
-  const newsThisYear = newsData.filter(news => {
-    const newsYear = getYearFromDate(news.date);
-    return newsYear === currentYear;
-  });
-
-
   return (
     <div className={additionalStyles.container}>
       <div className={additionalStyles.contentContainer}>
@@ -86,10 +67,37 @@ export default function News() {
             <div className={styles.newsCard}>
               <div className={styles.newsCardHeader}>
                 <h3>Total de Notícias</h3>
-                
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg>
               </div>
               <div className={styles.newsCardContent}>
-                <span>{newsData.length}</span>
+                <p>{newsData.length}</p>
+              </div>
+            </div>
+            <div className={styles.newsCard}>
+              <div className={styles.newsCardHeader}>
+                <h3>Notícias Ativas</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
+              </div>
+              <div className={styles.newsCardContent}>
+                <p>
+                  {newsData.filter(news => news.status === true).length}
+                </p>
+              </div>
+            </div>
+            <div className={styles.newsCard}>
+              <div className={styles.newsCardHeader}>
+                <h3>Notícias Inativas</h3>
+                <svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={styles.iconInactive}>
+                  <g id="inactive">
+                    <path d="M13.6,23.9c-7.8,1-14.5-5.6-13.5-13.5c0.7-5.3,5-9.7,10.3-10.3c7.8-1,14.5,5.6,13.5,13.5C23.2,18.9,18.9,23.2,13.6,23.9z    M13.7,2.1C6.9,1,1,6.9,2.1,13.7c0.7,4.1,4,7.5,8.2,8.2C17.1,23,23,17.1,21.9,10.3C21.2,6.2,17.8,2.8,13.7,2.1z"/>
+                    <polyline points="5.6,4.2 19.8,18.3 18.4,19.8 4.2,5.6  "/>
+                  </g>
+                </svg>
+              </div>
+              <div className={styles.newsCardContent}>
+                <p>
+                  {newsData.filter(news => news.status === false).length}
+                </p>
               </div>
             </div>
           </section>
