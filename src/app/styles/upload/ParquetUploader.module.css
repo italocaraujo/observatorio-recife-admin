@@ -1,34 +1,78 @@
+.container {
+  border-width: 1px;
+  border-radius: var(--radius);
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.titleContainer > *:not(:first-child) {
+  margin-top: 0.375rem;
+}
+
 .title {
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.025em;
+  gap: 0.5rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: var(--foreground);
-  margin-bottom: 24px;
-  text-align: center;
+  line-height: 1;
+}
+
+.title svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
 }
 
 .form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  padding: 1.5rem;
+  padding-top: 0px;
 }
 
-/* Área de drag and drop */
+.dropzoneContainer {
+  gap: 0.375rem;
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  max-width: 24rem;
+  width: 100%;
+}
+
+.dropzoneLabel {
+  font-weight: 500;
+  line-height: 1;
+  font-size: 0.875rem;
+}
+
 .dropzone {
-  border: 2px dashed var(--card-news-border);
+  border-width: 1px;
   border-radius: 12px;
-  padding: 48px;
+  padding: 1rem;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  background-color: var(--backgroundSecondary);
-  position: relative;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .dropzone:hover {
   border-color: var(--edit-button-background);
   background-color: var(--item-hover);
 }
+
 
 .dropzone.dragging {
   border-color: var(--edit-button-background);
@@ -37,10 +81,10 @@
 }
 
 .dropzoneText {
-  color: var(--card-news-description);
-  font-size: 15px;
-  line-height: 1.5;
-  margin-bottom: 30px;
+  position: relative;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
 }
 
 .fileInputWrapper {
@@ -48,14 +92,8 @@
 }
 
 .fileInput {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  z-index: 2;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .uploadButton {
@@ -81,8 +119,8 @@
   padding: 20px;
   margin-top: 16px;
   background-color: var(--backgroundSecondary);
-  border-radius: 16px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.03);
+  border-radius: var(--radius);
+  border-width: 1px;
 }
 
 .fileListTitle {
@@ -102,17 +140,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--background);
+  background-color: var(--snow);
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   margin-bottom: 10px;
   font-size: 14px;
-  color: var(--card-news-description);
   transition: background-color 0.2s ease-in-out;
+  border-width: 1px;
 }
 
 .fileItem:hover {
-  background-color: var(--item-hover);
+  background-color: var(--muted);
 }
 
 .fileName {
@@ -120,6 +158,24 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.fileIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileIcon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.fileSize {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+  margin-left: 0.5rem
 }
 
 .removeButton {
@@ -130,10 +186,18 @@
   cursor: pointer;
   padding-left: 12px;
   transition: color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.removeButton svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: var(--red);
 }
 
 .removeButton:hover {
-  color: #c21807;
+  text-decoration: underline;
 }
 
 /* Botão final */
@@ -144,26 +208,44 @@
 }
 
 .submitButton,
-.submitButtonDisabled {
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 14px;
+.chooseDestinationButton {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 500;
   cursor: pointer;
   border: none;
   transition: background-color 0.2s ease-in-out;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem
+}
+
+.chooseDestinationButton {
+  padding: 0.55rem 0.75rem;
+  background-color: transparent;
+  color: var(--blue);
+  border: 1px solid var(--blue);
 }
 
 .submitButton {
-  background-color: var(--edit-button-background);
-  color: var(--edit-button-text);
+  background-color: var(--blue);
+  color: var(--white);
 }
 
 .submitButton:hover {
-  background-color: var(--edit-button-hover);
+  background-color: var(--blue-hover);
 }
 
-.submitButtonDisabled {
-  background-color: var(--background-button-disabled);
-  color: var(--text-button-disabled);
+.chooseDestinationButton:hover {
+  background-color: var(--light-gray);
+}
+
+.submitButton,
+.chooseDestinationButton svg {
+  width: 1rem;
+  height: 1rem;
 }
