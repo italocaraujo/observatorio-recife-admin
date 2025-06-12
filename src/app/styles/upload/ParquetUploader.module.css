@@ -114,7 +114,6 @@
   background-color: var(--edit-button-hover);
 }
 
-/* Lista de arquivos */
 .fileListContainer {
   padding: 20px;
   margin-top: 16px;
@@ -126,7 +125,6 @@
 .fileListTitle {
   font-size: 15px;
   font-weight: 500;
-  color: var(--card-news-title);
   margin-bottom: 12px;
 }
 
@@ -181,7 +179,7 @@
 .removeButton {
   background: none;
   border: none;
-  color: var(--delete-button-text);
+  color: var(--red);
   font-size: 13px;
   cursor: pointer;
   padding-left: 12px;

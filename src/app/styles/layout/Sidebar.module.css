@@ -160,11 +160,11 @@
 }
 
 .nav ul li a:hover {
-  background-color: var(--item-sidebar-hover); 
+  background-color: var(--gray); 
 }
 
 .nav ul li a.activeLink {
-  background-color: var(--item-sidebar-activated); 
+  background-color: var(--light-blue); 
 }
 
 .nav ul li a svg {

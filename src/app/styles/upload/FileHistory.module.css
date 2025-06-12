@@ -53,16 +53,16 @@
 }
 
 .historyItem {
-  border: 1px solid var(--card-news-border);
+  border-width: 1px;
   border-radius: var(--radius);
   padding: 16px;
   transition: all 0.2s ease-in-out;
-  background-color: var(--backgroundSecondary);
+  display: flex;
+  justify-content: space-between;
 }
 
 .historyItem:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: var(--snow);
 }
 
 .itemHeader {
@@ -96,12 +96,126 @@
 
 .fileName {
   display: block;
-  font-size: 14px;
-  color: var(--card-news-description);
+  font-size: 0.9rem;
 }
 
 .itemFooter {
   margin-top: 8px;
   font-size: 13px;
-  color: var(--card-news-date);
+  color: var(--muted-foreground);
+}
+
+.detailsButtonContainer {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.detailsButton {
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  padding: 0.5rem 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border: solid 1px var(--blue);
+  color: var(--blue);
+}
+
+.detailsButton:hover {
+  background-color: var(--light-gray);
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0 0 0 / 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.7rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.closeButton:hover {
+  color: #000;
+}
+
+.modalContainer > *:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.modalHeader > *:not(:first-child) {
+  margin-top: 0.375rem;
+} 
+
+.modalTitle {
+  letter-spacing: -0.025em;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.modalDescription {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.modalBody > *:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.modalSectionTitle {
+  line-height: 1;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.modalFile {
+  list-style-type: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.modalFileList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modalFileName {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.modalFileName:last-child {
+  border-bottom: none;
 }

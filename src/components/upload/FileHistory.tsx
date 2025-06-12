@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@/app/styles/upload/FileHistory.module.css';
 
 interface UploadHistoryItem {
@@ -11,7 +11,9 @@ interface UploadHistoryItem {
 }
 
 const FileHistory: React.FC = () => {
-  // Dados simulados (mock)
+  const [selectedItem, setSelectedItem] = useState<UploadHistoryItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const mockHistory: UploadHistoryItem[] = [
     {
       id: 1,
@@ -41,6 +43,16 @@ const FileHistory: React.FC = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
+  const handleDetailsClick = (item: UploadHistoryItem) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedItem(null);
+  };
+
   return (
     <div className={styles.historyContainer}>
       <div className={styles.historyHeader}>
@@ -55,31 +67,87 @@ const FileHistory: React.FC = () => {
           <ul className={styles.historyList}>
             {mockHistory.map((item) => (
               <li key={item.id} className={styles.historyItem}>
-                <div className={styles.itemHeader}>
-                  <span className={styles.dateBadge}>
-                    {item.date.toLocaleDateString()}{' '}
-                    <span className={styles.time}>{item.date.toLocaleTimeString()}</span>
-                  </span>
+                <div className={styles.itemContent}>
+                  <div className={styles.itemHeader}>
+                    <span className={styles.dateBadge}>
+                      {item.date.toLocaleDateString()}{' '}
+                      <span className={styles.time}>{item.date.toLocaleTimeString()}</span>
+                    </span>
+                  </div>
+
+                  <ul className={styles.fileList}>
+                    {item.files.map((file, index) => (
+                      <li key={index} className={styles.fileName}>
+                        {file}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className={styles.itemFooter}>
+                    <span className={styles.totalSize}>
+                      Total: {formatBytes(item.totalSize)}
+                    </span>
+                </div>
                 </div>
 
-                <ul className={styles.fileList}>
-                  {item.files.map((file, index) => (
-                    <li key={index} className={styles.fileName}>
-                      {file}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className={styles.itemFooter}>
-                  <span className={styles.totalSize}>
-                    Total: {formatBytes(item.totalSize)}
-                  </span>
+                <div className={styles.detailsButtonContainer}>
+                  <button className={styles.detailsButton} onClick={() => handleDetailsClick(item)}>
+                    Detalhes
+                  </button>
                 </div>
               </li>
             ))}
           </ul>
         )}
       </div>
+
+      {isModalOpen && selectedItem && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeButton} onClick={closeModal}>
+              &times;
+            </button>
+            
+            <section className={styles.modalContainer}>
+              <div className={styles.modalHeader}>
+                <h2 className={styles.modalTitle}>Detalhes do Upload</h2>
+                <p className={styles.modalDescription}>Informações detalhadas sobre o arquivo enviado</p>
+              </div>
+              
+              <section className={styles.modalBody}>
+                <div className={styles.modalSection}>
+                  <h4 className={styles.modalSectionTitle}>Data e Hora:</h4>
+                  <p className={styles.modalFile}>
+                    {selectedItem.date.toLocaleDateString()} {' '}
+                    {selectedItem.date.toLocaleTimeString()}
+                  </p>
+                </div>
+                
+                <div className={styles.modalSection}>
+                  <h4 className={styles.modalSectionTitle}>Arquivos:</h4>
+                  <ul className={styles.modalFileList}>
+                    {selectedItem.files.map((file, index) => (
+                      <li key={index} className={styles.modalFileName}>
+                        {file}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className={styles.modalSection}>
+                  <h4 className={styles.modalSectionTitle}>Tamanho Total:</h4>
+                  <p className={styles.modalFile}>{formatBytes(selectedItem.totalSize)}</p>
+                </div>
+                
+                <div className={styles.modalSection}>
+                  <h4 className={styles.modalSectionTitle}>Quantidade de Arquivos:</h4>
+                  <p className={styles.modalFile}>{selectedItem.files.length}</p>
+                </div>
+              </section>
+            </section>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

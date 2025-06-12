@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import styles from '@/app/styles/upload/ParquetUploader.module.css';
+import DestinationModal from './DestinationModal';
+import { destinationData } from './DestinationData';
 
 interface FileWithPreview extends File {
   preview?: string;
@@ -10,6 +12,8 @@ interface FileWithPreview extends File {
 const ParquetUploader: React.FC = () => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDestination, setSelectedDestination] = useState<number | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -43,11 +47,17 @@ const ParquetUploader: React.FC = () => {
     setFiles(files.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Arquivos enviados:', files);
-    alert(`${files.length} arquivo(s) .parquet enviado(s) com sucesso!`);
-    setFiles([]); 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const selectDestination = (id: number) => {
+    setSelectedDestination(id);
+  };
+
+  const resetUploader = () => {
+    setFiles([]);
+    setSelectedDestination(null);
   };
 
   return (
@@ -60,7 +70,7 @@ const ParquetUploader: React.FC = () => {
         <p className={styles.subtitle}>Faça upload de arquivos Parquet para o sistema</p>
       </div>
 
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form className={styles.form}>
         <div className={styles.dropzoneContainer}>
           <label htmlFor="file-upload" className={styles.dropzoneLabel}>Arquivo Parquet</label>
           <div
@@ -118,9 +128,9 @@ const ParquetUploader: React.FC = () => {
             </ul>
             <div className={styles.buttonContainer}>
               <button
-                type="submit"
-                disabled={files.length === 0}
-                className={styles.chooseDestinationButton}
+              type="button"
+              className={styles.chooseDestinationButton}
+              onClick={() => setIsModalOpen(true)}
               >
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path opacity="0.45" d="M12 17V19.38C12 21.25 11.25 22 9.37 22H4.62C2.75 22 2 21.25 2 19.38V14.63C2 12.75 2.75 12 4.62 12H7V14.37C7 16.25 7.75 17 9.62 17H12Z" fill="#0052D4"/>
@@ -130,21 +140,22 @@ const ParquetUploader: React.FC = () => {
                 Escolher Destino
               </button>
 
-              {/* <button
-                type="submit"
-                disabled={files.length === 0}
-                className={styles.submitButton}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
-                Enviar
-              </button> */}
+              {/* */}
             </div>
           </div>
           
         )}
-
-       
       </form>
+      
+      <DestinationModal
+      isOpen={isModalOpen}
+      onClose={closeModal}
+      onSelect={selectDestination}
+      selectedDestination={selectedDestination}
+      options={destinationData}
+      onReset={resetUploader}
+      />
+      
     </div>
   );
 };

@@ -1,0 +1,160 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0 0 0 / 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modalContent > *:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.7rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.closeButton:hover {
+  color: #000;
+}
+
+.modalHeader > *:not(:first-child) {
+  margin-top: 0.375rem;
+}
+
+.modalTitle {
+  letter-spacing: -0.025em;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.modalDescription {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.optionsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.optionCard {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.optionCard:hover {
+  border-color: var(--blue);
+  background-color: var(--snow);
+}
+
+.optionCard.selected {
+  border-color: var(--blue);
+  outline: solid 2px var(--light-blue);
+  background-color: #f0f7ff;
+}
+
+.optionIcon {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.optionIcon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.optionText {
+  flex: 1;
+}
+
+.optionName {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.optionDescription {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.selectedIndicator {
+  position: absolute;
+  top: 1.4rem;
+  right: 1rem;
+  color: #2563eb;
+}
+
+.selectedIndicator svg {
+  width: 20px;
+  height: 20px;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitButton {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.submitButton svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.submitButton:hover {
+    background-color: var(--blue-hover);
+}
