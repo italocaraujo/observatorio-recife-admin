@@ -2,6 +2,7 @@
 
 import styles from '@/app/styles/upload/DestinationModal.module.css';
 import { DestinationOption, DestinationModalProps } from '@/@types/admin/Upload';
+import { useState } from 'react';
 
 const DestinationModal: React.FC<DestinationModalProps> = ({
   isOpen,
@@ -9,17 +10,52 @@ const DestinationModal: React.FC<DestinationModalProps> = ({
   onSelect,
   selectedDestination,
   options,
-  onReset
+  onReset,
+  selectedSubDestination,
+  onSelectSubDestination
 }) => {
-    if (!isOpen) return null;
-    
+  const [localSelectedSub, setLocalSelectedSub] = useState<number | null>(null);
+  const [showSubOptionError, setShowSubOptionError] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        alert(`Destino selecionado: ${selectedDestination}`);
-        onReset();
-        onClose();
-    };
+  if (!isOpen) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const selectedOption = options.find(opt => opt.id === selectedDestination);
+    
+    if (!selectedOption) {
+      console.error('Nenhuma opção selecionada');
+      return;
+    }
+
+    if (selectedOption.subOptions && selectedOption.subOptions.length > 0 && !localSelectedSub) {
+      setShowSubOptionError(true);
+      return;
+    }
+
+    setShowSubOptionError(false);
+    
+    const subOptionName = selectedOption.subOptions?.find(sub => sub.id === localSelectedSub)?.name || '';
+    alert(`Destino selecionado: ${selectedOption.name}${subOptionName ? ` > ${subOptionName}` : ''}`);
+    
+    onReset();
+    onClose();
+    setLocalSelectedSub(null);
+  };
+
+  const handleSelectOption = (id: number) => {
+    onSelect(id);
+    setLocalSelectedSub(null);
+    setShowSubOptionError(false);
+  };
+
+  const handleSelectSubOption = (id: number) => {
+    setLocalSelectedSub(id);
+    setShowSubOptionError(false);
+  };
+
+  const selectedOptionData = options.find(opt => opt.id === selectedDestination);
+  const hasSubOptions = selectedOptionData?.subOptions && selectedOptionData.subOptions.length > 0;
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -39,7 +75,7 @@ const DestinationModal: React.FC<DestinationModalProps> = ({
             <div
               key={option.id}
               className={`${styles.optionCard} ${selectedDestination === option.id ? styles.selected : ''}`}
-              onClick={() => onSelect(option.id)}
+              onClick={() => handleSelectOption(option.id)}
             >
               <div className={styles.optionIcon}>{option.icon}</div>
               <div className={styles.optionText}>
@@ -55,6 +91,28 @@ const DestinationModal: React.FC<DestinationModalProps> = ({
             </div>
           ))}
         </div>
+
+        {selectedDestination && hasSubOptions &&  (
+          <div className={styles.subOptionsContainer}>
+            <h2 className={styles.modalTitle}>Selecione a subcategoria</h2>
+            {showSubOptionError && (
+              <p className={styles.errorMessage}>Por favor, selecione uma subcategoria</p>
+            )}
+            <div className={styles.subOptionsGrid}>
+              {selectedOptionData.subOptions?.map((subOption) => (
+                <div
+                  key={subOption.id}
+                  className={`${styles.optionCard} ${localSelectedSub === subOption.id ? styles.selected : ''}`}
+                  onClick={() => handleSelectSubOption(subOption.id)}
+                >
+                  <div className={styles.optionText}>
+                    <h4 className={styles.subOptionName}>{subOption.name}</h4>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         
         <div className={styles.modalFooter}>
             <button

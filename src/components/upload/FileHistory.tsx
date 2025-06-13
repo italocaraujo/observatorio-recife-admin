@@ -15,24 +15,24 @@ const FileHistory: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const mockHistory: UploadHistoryItem[] = [
-    {
-      id: 1,
-      files: ['dados_2024.parquet', 'relatorio_final.parquet'],
-      totalSize: 1024 * 1024 * 3.5, 
-      date: new Date('2024-10-15T10:30:00'),
-    },
-    {
-      id: 2,
-      files: ['backup.parquet'],
-      totalSize: 1024 * 1024 * 1.2, 
-      date: new Date('2024-10-14T16:45:00'),
-    },
-    {
-      id: 3,
-      files: ['dados_antigos.parquet', 'teste.parquet', 'exportacao.parquet'],
-      totalSize: 1024 * 1024 * 7.8,
-      date: new Date('2024-10-12T09:15:00'),
-    },
+    // {
+    //   id: 1,
+    //   files: ['dados_2024.parquet', 'relatorio_final.parquet'],
+    //   totalSize: 1024 * 1024 * 3.5, 
+    //   date: new Date('2024-10-15T10:30:00'),
+    // },
+    // {
+    //   id: 2,
+    //   files: ['backup.parquet'],
+    //   totalSize: 1024 * 1024 * 1.2, 
+    //   date: new Date('2024-10-14T16:45:00'),
+    // },
+    // {
+    //   id: 3,
+    //   files: ['dados_antigos.parquet', 'teste.parquet', 'exportacao.parquet'],
+    //   totalSize: 1024 * 1024 * 7.8,
+    //   date: new Date('2024-10-12T09:15:00'),
+    // },
   ];
 
   const formatBytes = (bytes: number): string => {

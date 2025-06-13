@@ -1,9 +1,15 @@
 import { JSX } from "react";
 
+interface SubOption {
+  id: number;
+  name: string;
+}
+
 export interface DestinationOption {
   id: number;
   name: string;
   icon: JSX.Element;
+  subOptions?: SubOption[];
 }
 
 export interface DestinationModalProps {
@@ -13,4 +19,6 @@ export interface DestinationModalProps {
   selectedDestination: number | null;
   options: DestinationOption[];
   onReset: () => void;
+  selectedSubDestination?: number | null;
+  onSelectSubDestination?: (id: number) => void;
 }
