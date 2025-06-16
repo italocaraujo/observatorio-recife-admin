@@ -147,10 +147,10 @@
 }
 
 .emptyMessage {
-  color: #666;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
   text-align: center;
   padding: 2rem;
-  font-style: italic;
 }
 
 .searchContainer {

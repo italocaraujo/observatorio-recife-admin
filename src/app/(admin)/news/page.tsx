@@ -9,6 +9,7 @@ import EditNews from "@/components/news/EditNews";
 import styles from '@/app/styles/news/page.module.css';
 import additionalStyles from '@/app/styles/layout/LayoutPage.module.css';
 import PageTitle from "@/components/layout/PageTitle";
+import Loading from "@/components/layout/Loading";
 
 export default function News() {
   const [newsData, setNewsData] = useState<NewsItem[]>([]);
@@ -24,9 +25,11 @@ export default function News() {
   }, [forceRefresh]);
 
   if (loading) {
-    return <div className={styles.loading}>Carregando...</div>;
+    return (
+      <Loading message="Carregando notícias..." />
+    );
   }
-
+  
   return (
     <div className={additionalStyles.container}>
       <div className={additionalStyles.contentContainer}>

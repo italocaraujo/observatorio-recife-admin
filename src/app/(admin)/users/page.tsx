@@ -10,6 +10,7 @@ import { sidebarData } from "@/components/layout/SidebarData";
 import { fetchUsers, deleteUser, editUser, createUser } from "@/@api/http/users/usersActions";
 import { UserFilterType } from "@/@types/admin/UserFilter";
 import PageTitle from "@/components/layout/PageTitle";
+import Loading from "@/components/layout/Loading";
 
 export default function Users() {
   const [users, setUsers] = useState<UserItem[]>([]);
@@ -95,6 +96,12 @@ const handleSaveUser = async (userData: Omit<UserItem, "id"> & { id?: number }) 
     }
     return success;
   };
+
+  if (loading) {
+    return (
+      <Loading message="Carregando usuários..." />
+    );
+  }
 
   return (
     <div className={additionalStyles.container}>

@@ -1,8 +1,9 @@
 import { JSX } from "react";
 
-interface SubOption {
+export interface SubOption {
   id: number;
   name: string;
+  subOptions?: SubOption[];
 }
 
 export interface DestinationOption {

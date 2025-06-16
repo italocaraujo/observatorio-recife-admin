@@ -133,7 +133,6 @@
 .noData {
   text-align: center;
   color: var(--muted-foreground);
-  font-style: italic;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }

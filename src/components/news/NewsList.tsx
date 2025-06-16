@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import styles from '@/app/styles/news/NewsList.module.css';
-
-interface NewsItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-  link: string;
-  status: boolean;
-}
+import { NewsItem } from '@/@types/admin/News';
 
 interface NewsListProps {
   newsData: NewsItem[];
@@ -31,7 +22,6 @@ const NewsList: React.FC<NewsListProps> = ({
     );
   });
 
-  // Validação de dados
   if (!Array.isArray(newsData)) {
     return (
       <div className={styles.errorMessage}>

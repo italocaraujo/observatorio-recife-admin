@@ -179,10 +179,66 @@ export const destinationData = [
         {
           id: 704,
           name: 'RAIS',
+          subOptions: [
+            {
+              id: 7041,
+              name: 'Distribuição Demográfica',
+            },
+            {
+              id: 7042,
+              name: 'Desligamentos',
+            },
+            {
+              id: 7043,
+              name: 'Diversidade',
+            },
+            {
+              id: 7044,
+              name: 'Estoque por Grupos',
+            },
+            {
+              id: 7045,
+              name: 'Estoque por Empresas',
+            },
+            {
+              id: 7046,
+              name: 'Relatório de Remuneração',
+            },
+          ]
         },
         {
           id: 705,
           name: 'CAGED Microdados',
+          subOptions: [
+            {
+              id: 7051,
+              name: 'Movimentação',
+            },
+            {
+              id: 7052,
+              name: 'Saldo',
+            },
+            {
+              id: 7053,
+              name: 'Salário Médio',
+            },
+            {
+              id: 7054,
+              name: 'Movimentação (Comparação)',
+            },
+            {
+              id: 7055,
+              name: 'Salário Médio (Comparação)',
+            },
+            {
+              id: 7056,
+              name: 'Grande Grupamento (Comparação)',
+            },
+            {
+              id: 7057,
+              name: 'CBO (Comparação)',
+            },
+          ]
         },
       ]
     },
