@@ -6,12 +6,15 @@ import "../globals.css";
 import styles from "@/app/styles/layout/LayoutPage.module.css";
 import { sidebarData } from "@/components/layout/SidebarData";
 import { SidebarProvider, useSidebar } from "@/contexts/SidebarContext";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useProtectedRoute(); 
+  
   return (
     <>
       <SidebarProvider>
@@ -28,7 +31,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     <>
       <Head>
         <title>Observatório Admin</title>
-        <link rel="icon" href="/favicon.ico" /> {/* Corrigi a tag de favicon */}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.mainPageContainer}>
         <Sidebar links={sidebarData} isOpen={isOpen} toggleSidebar={toggleSidebar}/>

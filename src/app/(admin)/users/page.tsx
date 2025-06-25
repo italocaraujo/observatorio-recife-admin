@@ -11,8 +11,11 @@ import { fetchUsers, deleteUser, editUser, createUser } from "@/@api/http/users/
 import { UserFilterType } from "@/@types/admin/UserFilter";
 import PageTitle from "@/components/layout/PageTitle";
 import Loading from "@/components/layout/Loading";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Users() {
+
+  const { error: loginError, login } = useAuth();
   const [users, setUsers] = useState<UserItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,9 +25,15 @@ export default function Users() {
   const [filter, setFilter] = useState<UserFilterType>({});
 
 
-  useEffect(() => {
-    fetchUsers(setUsers, setLoading, setError);
-  }, [forceRefresh]);
+useEffect(() => {
+    async function doLoginAndFetch() {
+      const loggedIn = await login("italo.correia", "observatorio");
+      if (loggedIn) {
+        await fetchUsers(setUsers, setLoading, setError);
+      }
+    }
+    doLoginAndFetch();
+}, []);
 
   function handleEditUser(user: UserItem) {
     setUserToEdit(user);

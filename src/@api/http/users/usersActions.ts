@@ -1,15 +1,26 @@
-import { UserItem } from "@/@types/admin/User"
+import { UserItem } from "@/@types/admin/User";
 
-export const fetchUsers = async (setUsersData: React.Dispatch<React.SetStateAction<UserItem[]>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>, setError: React.Dispatch<React.SetStateAction<string | null>>) => {
+const getAuthToken = () => {
+  return localStorage.getItem("token") || "";
+}
+
+export const fetchUsers = async (
+  setUsersData: React.Dispatch<React.SetStateAction<UserItem[]>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setError: React.Dispatch<React.SetStateAction<string | null>>
+) => {
   setLoading(true);
   setError(null);
 
   try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Usuário não autenticado");
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/usersData?timestamp=${Date.now()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       },
       cache: 'no-store'
     });
@@ -19,7 +30,7 @@ export const fetchUsers = async (setUsersData: React.Dispatch<React.SetStateActi
     }
 
     const data = await response.json();
-    
+
     if (!Array.isArray(data)) {
       throw new Error('Resposta da API não é um array');
     }
@@ -41,11 +52,13 @@ export const createUser = async (
   setError(null);
 
   try {
+    const token = getAuthToken();
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(userData),
     });
@@ -55,7 +68,7 @@ export const createUser = async (
       throw new Error(errorText || `Erro ao criar usuário. Status: ${response.status}`);
     }
 
-    setForceRefresh(prev => prev + 1);
+    setForceRefresh((prev) => prev + 1);
     const createdUser: UserItem = await response.json();
     return createdUser;
   } catch (error: any) {
@@ -72,24 +85,26 @@ export const deleteUser = async (
   setForceRefresh: React.Dispatch<React.SetStateAction<number>>
 ) => {
   try {
+    const token = getAuthToken();
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/usersData/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     if (!response.ok) {
-      throw new Error('Erro ao excluir usuário');
+      throw new Error("Erro ao excluir usuário");
     }
 
-    setUsersData(prev => prev.filter(users => users.id !== id));
-    setForceRefresh(prev => prev + 1);
+    setUsersData((prev) => prev.filter((users) => users.id !== id));
+    setForceRefresh((prev) => prev + 1);
 
     return true;
   } catch (err) {
-    console.error('Erro ao excluir usuário:', err);
+    console.error("Erro ao excluir usuário:", err);
     return false;
   }
 };
@@ -102,30 +117,32 @@ export const editUser = async (
   setForceRefresh: React.Dispatch<React.SetStateAction<number>>
 ) => {
   try {
+    const token = getAuthToken();
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/usersData/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(userData),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Erro ao editar usuário');
+      throw new Error(errorData.message || "Erro ao editar usuário");
     }
 
     const updatedUser = await response.json();
-    
-    setUsersData(prev => prev.map(user => 
-      user.id === id ? { ...user, ...updatedUser } : user
-    ));
-    setForceRefresh(prev => prev + 1);
+
+    setUsersData((prev) =>
+      prev.map((user) => (user.id === id ? { ...user, ...updatedUser } : user))
+    );
+    setForceRefresh((prev) => prev + 1);
     return true;
   } catch (err) {
-    console.error('Erro ao editar usuário:', err);
-    setError(err instanceof Error ? err.message : 'Erro desconhecido ao editar usuário');
+    console.error("Erro ao editar usuário:", err);
+    setError(err instanceof Error ? err.message : "Erro desconhecido ao editar usuário");
     return false;
   }
 };

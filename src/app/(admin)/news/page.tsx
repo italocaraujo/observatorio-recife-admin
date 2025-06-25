@@ -10,8 +10,10 @@ import styles from '@/app/styles/news/page.module.css';
 import additionalStyles from '@/app/styles/layout/LayoutPage.module.css';
 import PageTitle from "@/components/layout/PageTitle";
 import Loading from "@/components/layout/Loading";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function News() {
+  const { error: loginError, login } = useAuth();
   const [newsData, setNewsData] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,8 +23,14 @@ export default function News() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchNews(setNewsData, setLoading, setError);
-  }, [forceRefresh]);
+      async function doLoginAndFetch() {
+        const loggedIn = await login(`${process.env.NEXT_PUBLIC_API_USERNAME}`, `${process.env.NEXT_PUBLIC_API_PASSWORD}`);
+        if (loggedIn) {
+          await fetchNews(setNewsData, setLoading, setError);
+        }
+      }
+      doLoginAndFetch();
+  }, []);
 
   if (loading) {
     return (

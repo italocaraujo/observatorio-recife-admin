@@ -1,5 +1,9 @@
 import { NewsItem } from "@/@types/admin/News";
 
+const getAuthToken = () => {
+  return localStorage.getItem("token") || "";
+}
+
 function setError(_arg0: string) {
   throw new Error("Function not implemented.");
 }
@@ -9,11 +13,14 @@ export const fetchNews = async (setNewsData: React.Dispatch<React.SetStateAction
   setError(null);
 
   try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Usuário não autenticado");
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/news/newsData?timestamp=${Date.now()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       },
       cache: 'no-store'
     });
@@ -39,10 +46,11 @@ export const fetchNews = async (setNewsData: React.Dispatch<React.SetStateAction
 
 export const handleCreateNews = async (formData: FormData, setSuccessMessage: React.Dispatch<React.SetStateAction<string | null>>, setForceRefresh: React.Dispatch<React.SetStateAction<number>>) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/news/newsData`, {
       method: 'POST',
       headers: {
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -73,11 +81,12 @@ export const handleDeleteNews = async (id: number, newsData: NewsItem[], setNews
   if (!confirmed) return false;
 
   try {
+    const token = getAuthToken();
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/news/newsData/${id}`, {
       method: 'DELETE',
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -102,43 +111,40 @@ export const handleSave = async (
   setSuccessMessage: React.Dispatch<React.SetStateAction<string | null>>,
   setError: React.Dispatch<React.SetStateAction<string | null>>, 
   imageFile: File | null,
-  setForceRefresh: React.Dispatch<React.SetStateAction<number>> // Adicionamos o setForceRefresh
+  setForceRefresh: React.Dispatch<React.SetStateAction<number>> 
 ) => {
   const formData = new FormData();
   formData.append('news', JSON.stringify(editedNews));
 
-  // Se uma imagem for selecionada, anexa ao FormData
   if (imageFile) {
     formData.append('image', imageFile);
   }
 
   try {
+    const token = getAuthToken();
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/news/newsData/${editedNews.id}`, {
       method: 'PUT',
       body: formData,
       headers: {
-        Authorization: `Basic ${btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`)}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     if (response.ok) {
       const updatedNews = await response.json();
 
-      // Atualiza a lista de notícias no estado
       const updatedNewsData = newsData.map(news =>
         news.id === updatedNews.id ? updatedNews : news
       );
       setNewsData(updatedNewsData);
       setEditingNews(null); 
 
-      // Exibe a mensagem de sucesso
       setSuccessMessage('Notícia atualizada com sucesso!');
       setTimeout(() => {
         setSuccessMessage(null);
       }, 3000);
 
-      // Força o refresh dos dados
-      setForceRefresh(prev => prev + 1); // Isso vai atualizar os dados da lista de notícias
+      setForceRefresh(prev => prev + 1);
     } else {
       const errorData = await response.json();
       setError(errorData.message || 'Erro ao atualizar notícia');
