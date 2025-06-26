@@ -9,5 +9,13 @@ export interface UserItem {
   status: boolean;
 }
 
+export interface FormModalProps {
+  isOpen: boolean;
+  user: UserItem | null;
+  onClose: () => void;
+  onSave: (user: UserItem) => void;
+  pages: string[];
+}
+
 export type UserCreate = Omit<UserItem, 'id' | 'status'>;
 export type UserEdit = Pick<UserItem, 'id' | 'status'> & UserCreate;

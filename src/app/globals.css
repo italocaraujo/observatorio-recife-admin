@@ -17,7 +17,8 @@
   --blue-hover: #1d4ed8;
   --blue-active: #1d4ed8;
 
-  --gray: #dfe3e7;
+  --gray: #d2d6da;
+  --gray-hover: #bec4ce;
   --light-blue: #c2e7ff;
 
   --card-list-news: #ffffff;
@@ -35,7 +36,7 @@
   --input-search-icon: #444746;
 
   --background-button-disabled: #d1d5db;
-  --text-button-disabled: #9ca3af;
+ 
 }
 
 html,
@@ -50,8 +51,6 @@ body {
   color: var(--foreground); 
   background: #fff; 
   font-family: Inter;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Reset de estilos para todos os elementos */
